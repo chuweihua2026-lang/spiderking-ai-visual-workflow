@@ -1,0 +1,4 @@
+interface:
+  display_name: "SpiderKing Selling Points"
+  short_description: "Create 27:18 shoe selling-point boards."
+  default_prompt: "Use $spiderking-selling-points to create a 27:18 horizontal SpiderKing shoe selling-points board with visual, functional, and scenario sections."

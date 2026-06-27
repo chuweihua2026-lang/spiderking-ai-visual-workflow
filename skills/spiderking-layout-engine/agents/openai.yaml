@@ -1,0 +1,4 @@
+interface:
+  display_name: "SpiderKing Layout Engine"
+  short_description: "Compose the final SpiderKing brand card."
+  default_prompt: "Use $spiderking-layout-engine to compose the final SpiderKing brand card from the 3:2 main poster, product vision preview, three 9:16 model scene images, 27:18 selling-points board, and SpiderKing logo."

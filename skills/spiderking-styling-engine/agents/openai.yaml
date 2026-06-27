@@ -1,0 +1,4 @@
+interface:
+  display_name: "SpiderKing Styling Engine"
+  short_description: "Generate three 9:16 standing model scene images with varied styling."
+  default_prompt: "Use $spiderking-styling-engine to generate three 9:16 SpiderKing model images: all standing, non-repeating outfits, strong scene atmosphere, visible shoes, accessories, bags, and professional scene-title typography."

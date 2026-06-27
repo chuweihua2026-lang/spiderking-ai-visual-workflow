@@ -1,0 +1,13 @@
+{
+  "brand_name_en": "SpiderKing",
+  "brand_name_zh": "蜘蛛王",
+  "logo_file": "spiderking-logo.jpg",
+  "logo_source": "/Users/chuchu/Desktop/活动视频/logo.jpg",
+  "default_safe_margin_ratio": 0.06,
+  "usage_rules": [
+    "Use the built-in logo asset for all SpiderKing final layouts.",
+    "Keep the logo readable and undistorted.",
+    "Do not redraw, warp, recolor, or replace the logo unless the user explicitly provides a new official asset.",
+    "Prefer black logo on light background or white reversed logo only when a clean dark brand zone is required."
+  ]
+}

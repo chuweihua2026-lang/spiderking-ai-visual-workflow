@@ -1,0 +1,4 @@
+interface:
+  display_name: "SpiderKing Product Vision"
+  short_description: "Generate 3:2 structure-faithful shoe side, 45-degree, and top views plus attributes."
+  default_prompt: "Use $spiderking-product-vision to turn 1 to 3 shoe reference images into SpiderKing 3:2 white-background side, 45-degree hero, and top product views plus extracted attributes."

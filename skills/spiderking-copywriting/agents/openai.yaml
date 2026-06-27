@@ -1,0 +1,4 @@
+interface:
+  display_name: "SpiderKing Main Poster"
+  short_description: "Generate a 3:2 model-on-foot main poster and ecommerce copy for SpiderKing shoes."
+  default_prompt: "Use $spiderking-copywriting to generate a 3:2 horizontal SpiderKing main poster with a Chinese female model wearing the shoes, built-in logo, matched scene, outfit, accessories, bag, short title, badge, and 3 to 5 selling points."
