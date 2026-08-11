@@ -15,16 +15,20 @@ All image generation must use ChatGPT image generation only. Do not use Midjourn
 
 ```text
 shoe_images
-  -> spiderking-commercial-visual-stylist (mandatory pre-generation gate)
-      -> spiderking-product-vision
-          -> commercial styling revalidation
-              -> spiderking-commercial-scene-director (for every environment image)
-                  -> spiderking-copywriting
-                  -> spiderking-styling-engine
-                  -> spiderking-selling-points
-                      -> spiderking-layout-engine
-                          -> final_brand_card_template_a.png
-                          -> final_brand_card_template_b.png
+  -> product recognition (product_recognition.json)
+      -> consumer profile (consumer_profile.json)
+          -> persona selection (persona_selection.json)
+              -> clothing styling
+                  -> shoe, bag, and accessory styling (commercial_styling_decision.json)
+                      -> scene selection (commercial_scene_decision*.json)
+                          -> commercial photography generation
+                              -> spiderking-product-vision.render
+                              -> spiderking-copywriting
+                              -> spiderking-styling-engine
+                              -> spiderking-selling-points
+                                  -> spiderking-layout-engine
+                                      -> final_brand_card_template_a.png
+                                      -> final_brand_card_template_b.png
 ```
 
 ## Skills
@@ -51,6 +55,9 @@ Then provide 1 to 3 shoe product images and optional product direction.
 
 ## Core Rules
 
+- Preserve the strict stage order: product recognition -> consumer profile -> persona selection -> clothing styling -> shoe-bag-accessory styling -> scene selection -> commercial photography -> final layout.
+- Product recognition runs before any consumer, person, outfit, bag, accessory, or scene decision and does not require image generation.
+- Keep `product_recognition.json`, `consumer_profile.json`, and `persona_selection.json` as separate approved audit artifacts.
 - Every image-generation or image-editing call requires an approved `commercial_styling_decision.json` from `spiderking-commercial-visual-stylist`.
 - Every image that creates or changes an environment requires an approved `commercial_scene_decision.json` from `spiderking-commercial-scene-director`.
 - Scene selection follows product -> consumer -> use context -> brand feeling -> space -> time/light -> action -> camera.

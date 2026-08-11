@@ -26,24 +26,25 @@ Run this Skill before every ChatGPT image-generation or image-editing call in th
 - For product-only imagery, complete brand, product, scene, color, material, composition, and commercial checks; mark person-specific fields `not_applicable`.
 - For deterministic final layout using already approved images, do not rerun this Skill unless new visual content will be generated.
 - Do not call the image model until `commercial_styling_decision.json.status` equals `approved`.
+- Require an approved `product_recognition.json` before consumer profiling or persona selection. Do not select a person from raw visual impression alone.
 
 ## Required Decision Order
 
 Complete this sequence without skipping:
 
-1. Person analysis.
-2. Consumer, buyer, price-band, and persona-model selection.
-3. Brand positioning analysis.
-4. Product classification and evidence analysis.
-5. Preliminary use-context and scene-needs analysis.
-6. Clothing styling.
-7. Footwear-led outfit validation.
-8. Bag styling.
-9. Accessory styling.
-10. Color and material validation.
-11. Pose, camera, and product-visibility planning.
-12. Commercial visual optimization.
-13. Final pre-generation audit.
+1. Read and validate product recognition.
+2. Build the consumer profile and price-band hypothesis.
+3. Select the purchase decision-maker, actual user, and persona model.
+4. Analyze brand positioning.
+5. Define preliminary use-context and scene needs.
+6. Build clothing styling.
+7. Validate footwear-led outfit logic.
+8. Build bag styling.
+9. Build accessory styling.
+10. Validate color and material relationships.
+11. Plan pose, camera, and product visibility.
+12. Optimize commercial value.
+13. Complete the final pre-generation audit.
 
 ## Product-First Rules
 
@@ -58,7 +59,53 @@ Complete this sequence without skipping:
 - Use accessories sparingly but completely: select a watch when appropriate, jewelry, hat or hair detail, bag, and one or two personal charms when they support the concept.
 - Never imitate a specific copyrighted campaign. Aim for the decision quality of an international luxury, sports, or activewear visual team while creating an original SpiderKing direction.
 
-## Output
+## Outputs
+
+Create these files in order:
+
+1. `consumer_profile.json`
+2. `persona_selection.json`
+3. `commercial_styling_decision.json`
+
+```json
+{
+  "stage": "consumer_profile",
+  "status": "approved",
+  "product_recognition_ref": "product_recognition.json",
+  "price_band": "mass|mid|premium|inferred",
+  "target_consumer": "",
+  "purchase_decision_maker": "",
+  "actual_user": "",
+  "age_range": "",
+  "gender_or_group": "",
+  "occupation_or_family_identity": "",
+  "purchasing_power": "",
+  "consumer_motivations": [],
+  "pain_points": [],
+  "desired_lifestyle": [],
+  "credible_use_contexts": [],
+  "evidence_and_inference": []
+}
+```
+
+```json
+{
+  "stage": "persona_selection",
+  "status": "approved",
+  "consumer_profile_ref": "consumer_profile.json",
+  "persona_id": "M01|M02|M03|M04|F01|F02|F03|F04|H01|H02|EXT-*",
+  "persona_name": "",
+  "selection_reason": "",
+  "age": "",
+  "gender_or_group": "",
+  "occupation_or_family_identity": "",
+  "body_and_face_direction": "",
+  "temperament": "",
+  "hair_and_makeup_direction": "",
+  "commercial_identification_reason": "",
+  "rejected_personas": []
+}
+```
 
 Create `commercial_styling_decision.json` before image generation.
 
@@ -67,6 +114,9 @@ Create `commercial_styling_decision.json` before image generation.
   "skill_name": "SpiderKing Commercial Visual Stylist",
   "status": "approved",
   "analysis_sequence_completed": true,
+  "product_recognition_ref": "product_recognition.json",
+  "consumer_profile_ref": "consumer_profile.json",
+  "persona_selection_ref": "persona_selection.json",
   "person_analysis": {
     "persona_id": "M01|M02|M03|M04|F01|F02|F03|F04|H01|H02|EXT-*|not_applicable",
     "persona_name": "",
@@ -170,7 +220,7 @@ Set `status` to `needs_revision` and do not generate when any required check fai
 
 ## Interface
 
-`SpiderKingCommercialVisualStylist.run({ product_references, extracted_attributes, brand_context, model_context, scene_hint, campaign_hint })`
+`SpiderKingCommercialVisualStylist.run({ product_recognition, brand_context, model_context, scene_hint, campaign_hint })`
 
 Pass `commercial_styling_decision.json` to Product Vision, Scene Engine, Main Poster, Styling Engine, Selling Points, and any Layout Engine operation that creates new visual content.
 

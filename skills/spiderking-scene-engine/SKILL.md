@@ -14,6 +14,9 @@ Use this Skill after `spiderking-product-vision`. It creates one optimal lifesty
 ## Required Input
 
 - `shoe_attributes.json` from Product Vision.
+- `product_recognition.json`.
+- `consumer_profile.json`.
+- `persona_selection.json` when the scene includes a person.
 - `source_image_ref` or product reference image from Product Vision.
 - `commercial_styling_decision.json`: approved output from `spiderking-commercial-visual-stylist`.
 - `commercial_scene_decision.json`: approved output from `spiderking-commercial-scene-director`.
@@ -57,6 +60,9 @@ If another scene is clearly better, use it and explain the reason in `scene_spec
   "source_image_ref": "",
   "image_backend": "ChatGPT image generation",
   "commercial_styling_decision_ref": "commercial_styling_decision.json",
+  "product_recognition_ref": "product_recognition.json",
+  "consumer_profile_ref": "consumer_profile.json",
+  "persona_selection_ref": "persona_selection.json",
   "commercial_scene_decision_ref": "commercial_scene_decision.json",
   "selected_scene": "",
   "scene_rationale": "",

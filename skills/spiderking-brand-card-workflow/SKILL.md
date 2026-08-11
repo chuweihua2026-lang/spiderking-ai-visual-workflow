@@ -4,28 +4,29 @@ description: >-
   Orchestrate the parallel SpiderKing brand card image system from 1 to 3 shoe
   product images to two final layout templates: Template A left-right business
   card layout and Template B approved vertical integrated card. Use when Codex
-  must invoke the senior Commercial Visual Stylist and Commercial Scene Director
-  before applicable image generation, run Product Vision, then run Main Poster,
-  Styling Scenes, and Selling Points in parallel, then run Layout Engine. All
-  image generation must use ChatGPT image generation only and preserve the input
-  shoe one-to-one.
+  must run product recognition, consumer profiling, persona selection, clothing
+  and shoe-bag styling, scene direction, commercial photography generation, and
+  final layout in strict order. All image generation must use ChatGPT image
+  generation only and preserve the input shoe one-to-one.
 ---
 
 # SpiderKing Parallel Brand Card Workflow
 
 Use this Skill as the master workflow for the confirmed SpiderKing visual production system.
 
-The workflow is dependency-based:
+The workflow is dependency-based and must run in this order:
 
-1. Run `spiderking-commercial-visual-stylist` on the original references before the first image-generation call.
-2. Run `spiderking-product-vision` and extract detailed product attributes.
-3. Revalidate and finalize `commercial_styling_decision.json` with the extracted attributes.
-4. Run `spiderking-commercial-scene-director` before every branch image that contains a background, environment, or lifestyle scene.
-5. After Product Vision, styling, and scene gates are accepted, run three production branches in parallel:
+1. Product Recognition: run the image-free recognition phase of `spiderking-product-vision` and approve `product_recognition.json`.
+2. Consumer Profile: run `spiderking-commercial-visual-stylist` and approve `consumer_profile.json`.
+3. Persona Selection: select and approve `persona_selection.json` from the built-in human persona database.
+4. Clothing Styling: define upper, lower, outerwear, silhouette, color, and materials.
+5. Shoe-Bag-Accessory Styling: validate the shoe-led outfit, bag, watch, jewelry, hat or hair detail, and personal charms; approve `commercial_styling_decision.json`.
+6. Scene Selection: run `spiderking-commercial-scene-director` for every image containing an environment and approve each `commercial_scene_decision*.json`.
+7. Commercial Photography Generation: render Product Vision, then run three production branches in parallel:
    - `spiderking-copywriting`
    - `spiderking-styling-engine`
    - `spiderking-selling-points`
-6. Run `spiderking-layout-engine` last to output two final template images. Invoke both directors again only if Layout Engine must generate a new environment.
+8. Final Layout: run `spiderking-layout-engine` to output two final template images. Invoke both directors again only if Layout Engine must generate new visual content.
 
 ## Required Input
 
@@ -39,6 +40,8 @@ The SpiderKing logo is not required as runtime input. The downstream poster and 
 
 ## Global Hard Rules
 
+- Do not select a consumer, person, outfit, bag, accessory, or scene before `product_recognition.json.status` is `approved`.
+- Do not merge consumer profile and person selection into a generic model prompt. Preserve `consumer_profile.json` and `persona_selection.json` as separate auditable outputs.
 - Before every image-generation or image-editing call, invoke or revalidate `spiderking-commercial-visual-stylist` and load its detailed framework.
 - Before every image-generation or image-editing call that creates or changes a scene, invoke `spiderking-commercial-scene-director` and load its commercial scene database.
 - Select every human subject through the persona chain: product price band -> target consumer -> purchase decision-maker -> actual user -> use scene -> persona ID. Do not default to a young female model.
@@ -61,55 +64,85 @@ The SpiderKing logo is not required as runtime input. The downstream poster and 
 
 ```mermaid
 flowchart LR
-  A["shoe_images<br/>1 to 3 product images"] --> S0["commercial visual stylist<br/>provisional approved direction"]
-  S0 --> B["spiderking-product-vision<br/>product views + extracted attributes"]
-  B --> S1["commercial visual stylist<br/>final approved decision"]
-  S1 --> SD["commercial scene director<br/>approved scene decisions"]
+  A["shoe_images<br/>1 to 3 product images"] --> R["product recognition<br/>product_recognition.json"]
+  R --> CP["consumer profile<br/>consumer_profile.json"]
+  CP --> P["persona selection<br/>persona_selection.json"]
+  P --> ST["clothing + shoe-bag styling<br/>commercial_styling_decision.json"]
+  ST --> SD["scene selection<br/>commercial_scene_decisions"]
+  SD --> PV["product photography<br/>product views + extracted attributes"]
 
-  SD --> C["spiderking-copywriting<br/>3:2 main poster"]
-  SD --> D["spiderking-styling-engine<br/>three 9:16 model scene images"]
-  SD --> E["spiderking-selling-points<br/>27:18 selling-points board"]
+  PV --> C["main poster photography<br/>3:2 main poster"]
+  PV --> D["model photography<br/>three 9:16 scene images"]
+  PV --> E["selling-points photography<br/>27:18 board"]
 
   C --> F["spiderking-layout-engine"]
   D --> F
   E --> F
-  B --> F
+  PV --> F
 
   F --> G["Template A<br/>left-right layout"]
   F --> H["Template B<br/>approved vertical integrated card"]
 ```
 
-## Stage 1: Product Vision
+## Stages 1-6: Commercial Planning Gates
 
-Before Product Vision creates any image, run `spiderking-commercial-visual-stylist` on the source references and obtain a provisional approved decision. Person-specific fields may be `not_applicable` for product-only views.
+### Stage 1: Product Recognition
 
-Run `spiderking-product-vision`.
+Run `SpiderKingProductVision.recognize({ shoe_images, optional_product_hint })` without calling an image model.
 
-Input:
+Output and gate:
 
-- `shoe_images`
-- `optional_product_hint`
+- `product_recognition.json`
+- `extracted_attributes.json`
+- Stop if source images conflict, classification is generic despite specialized evidence, or unsupported claims are not excluded.
 
-Output:
+### Stage 2: Consumer Profile
+
+Run `spiderking-commercial-visual-stylist` with the approved product recognition.
+
+Output and gate:
+
+- `consumer_profile.json`
+- Record price band hypothesis, target consumer, purchase decision-maker, actual user, age, occupation or family identity, purchasing power, motivations, pain points, desired lifestyle, and credible use contexts.
+
+### Stage 3: Persona Selection
+
+Read the built-in human persona database and select an exact persona ID or justified `EXT-*` persona.
+
+Output and gate:
+
+- `persona_selection.json`
+- Reject a person chosen only for youth or attractiveness. The person must credibly represent the consumer, user, or purchase decision-maker.
+
+### Stages 4-5: Clothing and Shoe-Bag Styling
+
+Build clothing first, then validate footwear-led outfit logic and select bag and accessories.
+
+Output and gate:
+
+- `commercial_styling_decision.json`
+- Require approved silhouette balance, shoe prominence, bag logic, accessory hierarchy, 60/30/10 color plan, material compatibility, and product visibility.
+
+### Stage 6: Scene Selection
+
+Run `spiderking-commercial-scene-director` after persona and styling approval.
+
+Output and gate:
+
+- `commercial_scene_decision_main.json`
+- `commercial_scene_decision_01.json`, `commercial_scene_decision_02.json`, `commercial_scene_decision_03.json`
+- 3 to 4 additional approved scene decisions for scenario cards when needed.
+
+## Stage 7: Commercial Photography Generation
+
+First render Product Vision with the approved commercial decisions:
 
 - `side_view.png`: 3:2 side view, one single shoe.
 - `hero_45_view.png`: 3:2 45-degree view, one pair of shoes.
 - `top_view.png`: 3:2 top view, one pair of shoes.
 - `product_vision_preview.png`: polished three-view product preview.
-- `extracted_attributes.json`: structured product style, colors, materials, visual details, and selling-point basis.
-- `commercial_styling_decision.json`: revalidated commercial direction with detailed product classification and evidence.
 
-Gate before parallel branches:
-
-- Confirm product views preserve shoe structure.
-- Confirm side view is single shoe.
-- Confirm 45-degree and top views are a pair.
-- Confirm `extracted_attributes.json` is available.
-- Confirm `commercial_styling_decision.json.status` is `approved` before any parallel branch starts.
-
-## Stage 2: Parallel Production Branches
-
-After Product Vision passes, these three branches may run concurrently.
+After Product Vision photography passes, run the following three branches concurrently.
 
 ### Branch A: Main Poster
 
@@ -193,7 +226,7 @@ Work:
 - Scenario selling points use 3 to 4 horizontal rectangular scene-only images in a vertical stacked layout.
 - Scenario cards must not include models, legs, feet, or shoes.
 
-## Stage 3: Final Layout
+## Stage 8: Final Layout
 
 Run `spiderking-layout-engine` after all three parallel branches complete.
 
@@ -240,6 +273,9 @@ Create or return a package containing:
 - `scene_model_03.png`
 - `selling_points_board_27x18.png`
 - `extracted_attributes.json`
+- `product_recognition.json`
+- `consumer_profile.json`
+- `persona_selection.json`
 - `commercial_styling_decision.json`
 - `commercial_scene_decision_main.json`
 - `commercial_scene_decision_01.json`, `commercial_scene_decision_02.json`, `commercial_scene_decision_03.json`
@@ -264,21 +300,27 @@ Create or return a package containing:
     "layout_logo": "~/.codex/skills/spiderking-layout-engine/assets/spiderking-logo.jpg"
   },
   "workflow": {
-    "stage_0": ["spiderking-commercial-visual-stylist"],
-    "stage_1": ["spiderking-product-vision", "spiderking-commercial-visual-stylist"],
-    "stage_1_scene_gate": ["spiderking-commercial-scene-director"],
-    "stage_2_parallel": [
+    "stage_1_product_recognition": ["spiderking-product-vision.recognize"],
+    "stage_2_consumer_profile": ["spiderking-commercial-visual-stylist"],
+    "stage_3_persona_selection": ["spiderking-commercial-visual-stylist"],
+    "stage_4_5_styling": ["spiderking-commercial-visual-stylist"],
+    "stage_6_scene_selection": ["spiderking-commercial-scene-director"],
+    "stage_7_product_photography": ["spiderking-product-vision.render"],
+    "stage_7_parallel_photography": [
       "spiderking-copywriting",
       "spiderking-styling-engine",
       "spiderking-selling-points"
     ],
-    "stage_3": ["spiderking-layout-engine"]
+    "stage_8_layout": ["spiderking-layout-engine"]
   },
   "final_outputs": {
     "template_a": "final_brand_card_template_a.png",
     "template_b": "final_brand_card_template_b.png"
   },
   "intermediate_assets": {
+    "product_recognition": "product_recognition.json",
+    "consumer_profile": "consumer_profile.json",
+    "persona_selection": "persona_selection.json",
     "commercial_styling_decision": "commercial_styling_decision.json",
     "commercial_scene_decisions": [],
     "product_vision": "product_vision_preview.png",
@@ -301,6 +343,8 @@ Create or return a package containing:
 After each stage or parallel branch, verify:
 
 - Required image and JSON outputs exist.
+- Stage order is preserved: product recognition -> consumer profile -> persona selection -> clothing styling -> shoe-bag-accessory styling -> scene selection -> commercial photography -> layout.
+- `product_recognition.json`, `consumer_profile.json`, and `persona_selection.json` each exist and have `status: approved` before styling or image generation.
 - Aspect ratios match each Skill:
   - Product Vision: 3:2 product views.
   - Main Poster: 3:2.
@@ -323,7 +367,7 @@ After completing this Workflow, output:
 1. Skill 目标: Run the confirmed parallel SpiderKing workflow from 1 to 3 product images to two final brand card templates.
 2. 输入参数: `shoe_images` and optional `optional_product_hint`.
 3. 输出结果: `final_brand_card_template_a.png`, `final_brand_card_template_b.png`, all intermediate image assets, and `brand_card_system_manifest.json`.
-4. 核心规则: Commercial Visual Stylist and Commercial Scene Director are mandatory pre-generation gates for applicable images; Product Vision runs before the parallel production branches; Main Poster, Styling Scenes, and Selling Points run in parallel; Layout Engine runs last; all image generation uses ChatGPT image generation only; shoe consistency is protected over decorative impact.
+4. 核心规则: Run product recognition, consumer profile, persona selection, clothing styling, shoe-bag styling, scene selection, and commercial photography in strict order; Commercial Visual Stylist and Commercial Scene Director are mandatory gates; Main Poster, Styling Scenes, and Selling Points run in parallel only after approval; Layout Engine runs last; all image generation uses ChatGPT image generation only.
 5. 可复用接口: `SpiderKingParallelBrandCardWorkflow.run({ shoe_images, optional_product_hint })`.
 6. 与下游 Skill 的连接方式: This is the master workflow. Its final outputs go to delivery, export, review, or batch-production systems.
 
@@ -332,8 +376,10 @@ After completing this Workflow, output:
 Accept only if:
 
 - Input can be 1 or 3 shoe product images.
-- Product Vision completes before parallel branches start.
-- The Commercial Visual Stylist runs before the first image generation and its decision is revalidated after Product Vision.
+- Product recognition completes before consumer profiling or person selection.
+- Consumer profile and persona selection complete before styling.
+- Clothing and shoe-bag styling complete before scene selection.
+- Product Vision photography completes before the parallel commercial photography branches start.
 - No image generation begins unless the commercial styling decision is approved.
 - No environment generation begins unless the matching commercial scene decision is approved.
 - Main Poster, Styling Scenes, and Selling Points can run independently after Product Vision.

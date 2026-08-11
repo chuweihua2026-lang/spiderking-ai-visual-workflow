@@ -20,6 +20,7 @@ Read [references/commercial-scene-database-v1.txt](references/commercial-scene-d
 Run this Skill before every SpiderKing image-generation or image-editing call that creates or changes an environment, background, lifestyle scene, model scene, or scenario card.
 
 - Run after product attributes and the current `commercial_styling_decision.json` are available.
+- Require approved `product_recognition.json`, `consumer_profile.json`, and `persona_selection.json`; do not derive the consumer or person inside the scene prompt.
 - Do not call ChatGPT image generation until `commercial_scene_decision.json.status` is `approved`.
 - Product-only white-background views do not require a scene decision unless a new environment is introduced.
 - Deterministic final layout of already approved assets does not require a new scene decision.
@@ -71,6 +72,9 @@ Create `commercial_scene_decision.json` before scene generation.
   "skill_name": "SpiderKing Commercial Scene Director",
   "status": "approved",
   "source_refs": {
+    "product_recognition": "product_recognition.json",
+    "consumer_profile": "consumer_profile.json",
+    "persona_selection": "persona_selection.json",
     "product_attributes": "extracted_attributes.json",
     "styling_decision": "commercial_styling_decision.json"
   },
@@ -154,7 +158,6 @@ Set `status` to `needs_revision` and stop before image generation when any appli
 
 ## Interface
 
-`SpiderKingCommercialSceneDirector.run({ product_references, extracted_attributes, commercial_styling_decision, consumer_hint, use_context_hint, campaign_hint, sibling_scene_signatures })`
+`SpiderKingCommercialSceneDirector.run({ product_recognition, consumer_profile, persona_selection, commercial_styling_decision, campaign_hint, sibling_scene_signatures })`
 
 Pass `commercial_scene_decision.json` to Scene Engine, Copywriting Main Poster, Styling Engine, Selling Points scenario generation, and any Layout Engine operation that creates a new environment.
-

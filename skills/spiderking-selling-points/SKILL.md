@@ -16,6 +16,9 @@ Use this Skill after `spiderking-product-vision` has extracted shoe attributes a
 ## Required Input
 
 - `shoe_reference`: original shoe image or validated Product Vision output.
+- `product_recognition.json`.
+- `consumer_profile.json`.
+- `persona_selection.json` when consumer-facing scene language depends on a human use context.
 - `extracted_attributes.json`: shoe structure, colors, materials, visual details, and style tags.
 - `commercial_styling_decision.json`: approved output from `spiderking-commercial-visual-stylist`.
 - `commercial_scene_decisions`: 3 to 4 approved outputs from `spiderking-commercial-scene-director` for scenario cards.
@@ -150,6 +153,9 @@ Output requirements:
   "skill_name": "SpiderKing Selling Points",
   "image_backend": "ChatGPT image generation",
   "commercial_styling_decision_ref": "commercial_styling_decision.json",
+  "product_recognition_ref": "product_recognition.json",
+  "consumer_profile_ref": "consumer_profile.json",
+  "persona_selection_ref": "persona_selection.json",
   "commercial_scene_decision_refs": [],
   "aspect_ratio": "27:18",
   "source_image_ref": "",

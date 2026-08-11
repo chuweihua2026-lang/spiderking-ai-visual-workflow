@@ -16,6 +16,9 @@ Use this Skill after `spiderking-product-vision` and scene direction are availab
 ## Required Input
 
 - `extracted_attributes.json` or product style tags from Product Vision.
+- `product_recognition.json`.
+- `consumer_profile.json`.
+- `persona_selection.json`.
 - `commercial_styling_decision.json`: approved output from `spiderking-commercial-visual-stylist`.
 - `commercial_scene_decisions`: three approved decisions from `spiderking-commercial-scene-director`, one for each 9:16 image.
 - `scene_spec.json` or scene direction from Scene Engine, if available.
@@ -28,6 +31,7 @@ Use this Skill after `spiderking-product-vision` and scene direction are availab
 - Invoke `spiderking-commercial-visual-stylist` before generating each model image and load its detailed framework.
 - Invoke `spiderking-commercial-scene-director` before each model image and load its commercial scene database.
 - Do not generate when `commercial_styling_decision.json` is missing, stale for another product, or not `approved`.
+- Do not change the approved consumer identity or persona ID merely to increase conventional attractiveness.
 - Do not generate an image when its matching `commercial_scene_decision_0N.json` is missing, stale, or not `approved`.
 - Follow the mandatory analysis order before prompting: person, brand, product function, scene, clothing, footwear, bag, accessories, color, materials, pose/camera, and commercial optimization.
 - Let product function control the scene and outfit before trend styling. Do not reduce outdoor hiking, trail, business, or other specialized footwear to generic sportswear.
@@ -85,6 +89,9 @@ Use this Skill after `spiderking-product-vision` and scene direction are availab
   "source_image_ref": "",
   "image_backend": "ChatGPT image generation",
   "commercial_styling_decision_ref": "commercial_styling_decision.json",
+  "product_recognition_ref": "product_recognition.json",
+  "consumer_profile_ref": "consumer_profile.json",
+  "persona_selection_ref": "persona_selection.json",
   "commercial_scene_decision_refs": [
     "commercial_scene_decision_01.json",
     "commercial_scene_decision_02.json",

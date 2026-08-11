@@ -18,12 +18,13 @@ Use this Skill first in the SpiderKing brand card pipeline. The only product sou
 
 - `shoe_image`: 1 to 3 paths, URLs, or attachment references for the original shoe images.
 - Optional `optional_product_hint`: known model name, category, selling context, target customer, or product description.
-- `commercial_styling_decision.json`: provisional approved decision from `spiderking-commercial-visual-stylist`.
+- `commercial_styling_decision.json`: required only for the image-rendering phase, after product recognition, consumer profiling, and styling approval.
 
 ## Hard Rules
 
-- Invoke `spiderking-commercial-visual-stylist` before creating any product-view image. For product-only views, person fields may be `not_applicable`.
-- Do not generate until the provisional `commercial_styling_decision.json.status` is `approved`.
+- Always run product recognition first without generating images.
+- Invoke `spiderking-commercial-visual-stylist` only after `product_recognition.json` exists, then require its approved decision before creating any product-view image. For product-only views, person fields may be `not_applicable` in the rendering brief.
+- Do not generate until `commercial_styling_decision.json.status` is `approved`.
 - Use ChatGPT image generation only for all image generation or image editing.
 - Do not use Midjourney, Stable Diffusion, ComfyUI, or any other image model.
 - Use the input shoe images as the only product references.
@@ -36,10 +37,10 @@ Use this Skill first in the SpiderKing brand card pipeline. The only product sou
 
 ## Workflow
 
-1. Invoke `spiderking-commercial-visual-stylist` and approve a provisional product-led visual direction.
-2. Inspect all provided shoe images and identify the most reliable product details.
-3. Produce `extracted_attributes.json` with the schema below, separating visible evidence from inference.
-4. Revalidate `commercial_styling_decision.json` with the detailed attributes.
+1. Inspect all provided shoe images and identify the most reliable product facts without calling an image model.
+2. Produce `product_recognition.json` and `extracted_attributes.json`, separating visible evidence, user-supplied facts, inference, confidence, and unsupported claims.
+3. Pass product recognition to the Consumer Profile, Persona Selection, and Commercial Visual Styling stages.
+4. Receive approved `commercial_styling_decision.json` after those stages complete.
 5. Generate the three 3:2 product images with ChatGPT image generation, always attaching or referencing the original shoe image set.
 6. Validate each output against the consistency checklist.
 7. Regenerate with stricter reference constraints if any key detail drifts.
@@ -50,7 +51,50 @@ Use this Skill first in the SpiderKing brand card pipeline. The only product sou
 - `hero_45_view.png`: 3:2 45-degree front commercial hero view, one pair of shoes, clean white background and polished lighting, two short selling-point text lines below the image.
 - `top_view.png`: 3:2 top-down front view, one pair of shoes, shoe laces, upper, and toe structure clearly visible, two short selling-point text lines below the image.
 - `product_vision_preview.png`: polished horizontal preview sheet combining the three views into a clear commercial product card.
+- `product_recognition.json`: image-free product recognition result and the upstream source of truth for consumer, persona, styling, scene, copy, and selling-point decisions.
 - `extracted_attributes.json`: structured product attributes for downstream Skills.
+
+## `product_recognition.json` Schema
+
+```json
+{
+  "stage": "product_recognition",
+  "status": "approved",
+  "source_images": [],
+  "product_identity": {
+    "brand": "SpiderKing",
+    "product_type": "",
+    "primary_category": "",
+    "subcategory": "",
+    "target_gender_or_unisex": "",
+    "season_or_weather_context": []
+  },
+  "visible_facts": {
+    "shape_and_silhouette": [],
+    "colors": [],
+    "materials": [],
+    "sole_and_tread": [],
+    "upper_and_protection": [],
+    "closure": [],
+    "logo_and_brand_details": [],
+    "fashion_attributes": []
+  },
+  "functional_classification": {
+    "intended_activities": [],
+    "terrain_or_use_context": [],
+    "activity_intensity": "",
+    "visible_functional_features": []
+  },
+  "evidence": [],
+  "inferences_with_confidence": [],
+  "unsupported_claims": [],
+  "recognition_check": {
+    "source_images_consistent": true,
+    "specialized_category_not_reduced_to_generic_sports": true,
+    "unsupported_claims_excluded": true
+  }
+}
+```
 
 ## `extracted_attributes.json` Schema
 
@@ -101,6 +145,7 @@ Use this Skill first in the SpiderKing brand card pipeline. The only product sou
     "以输入鞋图为唯一产品参考，鞋子本体一比一还原，不改变结构、材质、颜色、比例、Logo 和细节"
   ],
   "commercial_styling_decision_ref": "commercial_styling_decision.json",
+  "product_recognition_ref": "product_recognition.json",
   "image_prompts": {
     "side_view": "",
     "hero_45_view": "",
@@ -159,10 +204,10 @@ If any item fails, regenerate with ChatGPT image generation and a stricter refer
 After completing this Skill, output:
 
 1. Skill 目标: Generate standardized 3:2 product views and structured shoe attributes.
-2. 输入参数: `shoe_image` supporting 1 to 3 images, optional `optional_product_hint`.
-3. 输出结果: `side_view.png`, `hero_45_view.png`, `top_view.png`, `product_vision_preview.png`, `extracted_attributes.json`; each product view includes two short selling-point text lines below the image.
+2. 输入参数: `shoe_image` supporting 1 to 3 images, optional `optional_product_hint`, and approved `commercial_styling_decision.json` for rendering.
+3. 输出结果: `product_recognition.json`, `side_view.png`, `hero_45_view.png`, `top_view.png`, `product_vision_preview.png`, `extracted_attributes.json`; each product view includes two short selling-point text lines below the image.
 4. 核心规则: ChatGPT image generation only; preserve the input shoe one-to-one; do not redesign, recolor, or alter structure; only improve clarity, lighting, white background, and commercial polish.
-5. 可复用接口: `SpiderKingProductVision.run({ shoe_image, optional_product_hint })`.
+5. 可复用接口: `SpiderKingProductVision.recognize({ shoe_image, optional_product_hint })`, then `SpiderKingProductVision.render({ product_recognition, commercial_styling_decision, shoe_image })`.
 6. 与下游 Skill 的连接方式: Pass `extracted_attributes.json` to Scene Engine, Styling Engine, and Copywriting; pass all three product views to Layout Engine.
 
 ## Attribute Acceptance Gate

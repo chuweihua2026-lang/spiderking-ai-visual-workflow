@@ -20,6 +20,9 @@ Use this Skill after Product Vision, Scene Engine, and Styling Engine are availa
 ## Required Input
 
 - `shoe_attributes.json`
+- `product_recognition.json`
+- `consumer_profile.json`
+- `persona_selection.json`
 - `commercial_styling_decision.json`: approved output from `spiderking-commercial-visual-stylist`.
 - `commercial_scene_decision_main.json`: approved output from `spiderking-commercial-scene-director`.
 - `scene_spec.json`
@@ -33,6 +36,7 @@ Use this Skill after Product Vision, Scene Engine, and Styling Engine are availa
 - Invoke `spiderking-commercial-visual-stylist` before poster generation and load its detailed framework.
 - Invoke `spiderking-commercial-scene-director` before poster generation and load its commercial scene database.
 - Do not generate until `commercial_styling_decision.json.status` is `approved`.
+- Do not regenerate or silently change the approved consumer or persona inside the poster prompt.
 - Do not generate until `commercial_scene_decision_main.json.status` is `approved`.
 - Follow the approved person, brand, product-function, scene, clothing, footwear, bag, accessory, color, material, pose, and commercial-photography decisions.
 - Product function determines the representative scene before generic campaign aesthetics. Outdoor hiking or trail footwear must not default to a running track or generic sports styling.
@@ -85,6 +89,9 @@ Use this Skill after Product Vision, Scene Engine, and Styling Engine are availa
   "language": "zh-CN",
   "image_backend": "ChatGPT image generation",
   "commercial_styling_decision_ref": "commercial_styling_decision.json",
+  "product_recognition_ref": "product_recognition.json",
+  "consumer_profile_ref": "consumer_profile.json",
+  "persona_selection_ref": "persona_selection.json",
   "commercial_scene_decision_ref": "commercial_scene_decision_main.json",
   "poster_aspect_ratio": "3:2",
   "main_poster_image": "main_poster_3x2.png",

@@ -1,4 +1,4 @@
 interface:
   display_name: "SpiderKing Parallel Workflow"
   short_description: "Run product-first parallel workflow to two final templates."
-  default_prompt: "Use $spiderking-brand-card-workflow to turn 1 to 3 SpiderKing shoe images into Template A and Template B brand cards."
+  default_prompt: "Use $spiderking-brand-card-workflow to run product recognition, consumer and persona selection, styling, scene direction, commercial photography, and two final SpiderKing brand cards."
