@@ -19,6 +19,8 @@ Read [references/commercial-scene-database-v1.txt](references/commercial-scene-d
 
 Run this Skill before every SpiderKing image-generation or image-editing call that creates or changes an environment, background, lifestyle scene, model scene, or scenario card.
 
+Enforce the full order: `商品识别 -> 消费者画像 -> 人物选择 -> 服装搭配 -> 鞋包搭配 -> 场景选择 -> 商业摄影生成`. This Skill owns `场景选择` and must approve it before `商业摄影生成`.
+
 - Run after product attributes and the current `commercial_styling_decision.json` are available.
 - Require approved `product_recognition.json`, `consumer_profile.json`, and `persona_selection.json`; do not derive the consumer or person inside the scene prompt.
 - Do not call ChatGPT image generation until `commercial_scene_decision.json.status` is `approved`.

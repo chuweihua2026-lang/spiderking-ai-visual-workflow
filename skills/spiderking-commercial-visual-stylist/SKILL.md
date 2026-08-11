@@ -22,6 +22,8 @@ Read both references in full before approving any image-generation brief:
 
 Run this Skill before every ChatGPT image-generation or image-editing call in the SpiderKing workflow.
 
+The governing order is: `商品识别 -> 消费者画像 -> 人物选择 -> 服装搭配 -> 鞋包搭配 -> 场景选择 -> 商业摄影生成`. This Skill owns the consumer, person, clothing, and shoe-bag styling gates and must not merge or skip them.
+
 - For model imagery, complete the full analysis.
 - For product-only imagery, complete brand, product, scene, color, material, composition, and commercial checks; mark person-specific fields `not_applicable`.
 - For deterministic final layout using already approved images, do not rerun this Skill unless new visual content will be generated.

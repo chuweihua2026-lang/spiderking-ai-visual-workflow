@@ -27,6 +27,8 @@ Use this Skill after `spiderking-product-vision` has extracted shoe attributes a
 
 ## Hard Rules
 
+- Before any generated selling-point visual, enforce the approved sequence: `商品识别 -> 消费者画像 -> 人物选择 -> 服装搭配 -> 鞋包搭配 -> 场景选择 -> 商业摄影生成`.
+- Stop if any applicable upstream gate is missing, not approved, stale, or belongs to another product.
 - Invoke `spiderking-commercial-visual-stylist` before generating detail expansions, supporting visuals, scenario images, or the final board.
 - Invoke `spiderking-commercial-scene-director` before generating each scenario image and load its commercial scene database.
 - Do not generate until `commercial_styling_decision.json.status` is `approved`.

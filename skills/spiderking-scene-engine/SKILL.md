@@ -23,6 +23,8 @@ Use this Skill after `spiderking-product-vision`. It creates one optimal lifesty
 
 ## Hard Rules
 
+- Before scene image generation, enforce the approved sequence: `商品识别 -> 消费者画像 -> 人物选择 -> 服装搭配 -> 鞋包搭配 -> 场景选择 -> 商业摄影生成`.
+- Stop if any applicable upstream gate is missing, not approved, stale, or belongs to another product.
 - Invoke `spiderking-commercial-visual-stylist` before generating the scene.
 - Invoke `spiderking-commercial-scene-director`, read its commercial scene database, and approve the scene before generation.
 - Do not generate until `commercial_styling_decision.json.status` is `approved`.

@@ -33,6 +33,8 @@ Use this Skill after Product Vision, Scene Engine, and Styling Engine are availa
 
 ## Hard Rules
 
+- Before poster generation, enforce the approved sequence: `商品识别 -> 消费者画像 -> 人物选择 -> 服装搭配 -> 鞋包搭配 -> 场景选择 -> 商业摄影生成`.
+- Stop if any upstream gate is missing, not approved, stale, or belongs to another product.
 - Invoke `spiderking-commercial-visual-stylist` before poster generation and load its detailed framework.
 - Invoke `spiderking-commercial-scene-director` before poster generation and load its commercial scene database.
 - Do not generate until `commercial_styling_decision.json.status` is `approved`.

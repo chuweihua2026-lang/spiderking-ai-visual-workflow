@@ -40,6 +40,8 @@ The SpiderKing logo is not required as runtime input. The downstream poster and 
 
 ## Global Hard Rules
 
+- Every image generation must obey this exact sequence: `商品识别 -> 消费者画像 -> 人物选择 -> 服装搭配 -> 鞋包搭配 -> 场景选择 -> 商业摄影生成`.
+- Do not reorder, merge, or skip these stages. For product-only imagery, person, clothing, shoe-bag, or scene fields may be explicitly marked `not_applicable`, but their gate files and applicability decisions must still exist before generation.
 - Do not select a consumer, person, outfit, bag, accessory, or scene before `product_recognition.json.status` is `approved`.
 - Do not merge consumer profile and person selection into a generic model prompt. Preserve `consumer_profile.json` and `persona_selection.json` as separate auditable outputs.
 - Before every image-generation or image-editing call, invoke or revalidate `spiderking-commercial-visual-stylist` and load its detailed framework.

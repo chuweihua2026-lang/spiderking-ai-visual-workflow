@@ -22,6 +22,8 @@ Use this Skill first in the SpiderKing brand card pipeline. The only product sou
 
 ## Hard Rules
 
+- Before any Product Vision image generation, enforce: `商品识别 -> 消费者画像 -> 人物选择 -> 服装搭配 -> 鞋包搭配 -> 场景选择 -> 商业摄影生成`.
+- Product-only fields may be `not_applicable`, but approved product, consumer, persona, styling, and scene-applicability decisions must exist before rendering.
 - Always run product recognition first without generating images.
 - Invoke `spiderking-commercial-visual-stylist` only after `product_recognition.json` exists, then require its approved decision before creating any product-view image. For product-only views, person fields may be `not_applicable` in the rendering brief.
 - Do not generate until `commercial_styling_decision.json.status` is `approved`.
