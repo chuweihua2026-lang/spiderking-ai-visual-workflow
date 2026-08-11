@@ -48,6 +48,9 @@ Use this Skill after Product Vision, Scene Engine, and Styling Engine are availa
 - Attach or reference the original shoe image for every poster generation.
 - Preserve the shoe one-to-one: shoe shape, upper structure, sole, colors, materials, logo, stitching, laces, decorations, and proportions must not change.
 - Use the uploaded SpiderKing logo asset. Do not redraw, replace, stylize, or invent the logo.
+- Pass the uploaded SpiderKing logo image and original shoe images into the same ChatGPT image-generation call that creates the complete poster.
+- Generate the entire poster in one image-generation call: model, shoes, scene, main title, subtitle, 3 to 5 selling points, new-arrival badge, and logo. Do not create a textless base photo and add text, badges, or logo with Pillow, canvas, Photoshop, or another post-processing step.
+- Reject and regenerate if any required Chinese copy is wrong, the logo is malformed, typography feels detached from the scene, or the hierarchy is weaker than the approved poster reference.
 - Prioritize shoe consistency over decorative impact if the image generation is uncertain.
 - Avoid text or model clothing covering the shoes.
 - Keep no more than three main styling colors and follow the approved 60/30/10 color plan.
@@ -73,8 +76,8 @@ Use this Skill after Product Vision, Scene Engine, and Styling Engine are availa
 3. Invoke `spiderking-commercial-scene-director`; approve the representative location, space, architecture, time, light, action, camera, and commercial hierarchy based first on product function, consumer, and use context.
 4. Build model styling from the approved decision: outfit silhouette, bag, watch, jewelry, hair or hat detail, one or two personal charms, materials, and 60/30/10 color balance.
 5. Write concise Chinese poster copy supported by visible shoe attributes and the credible use scene.
-6. Build a ChatGPT image-generation prompt for one 3:2 horizontal main poster with the model wearing the shoes.
-7. Generate `main_poster_3x2.png` with ChatGPT image generation only.
+6. Build one ChatGPT image-generation prompt for a complete 3:2 horizontal poster with model, product, scene, supplied logo, and all exact poster copy.
+7. Generate the complete `main_poster_3x2.png` in that single ChatGPT image-generation call; do not add typography afterward.
 8. Inspect the poster for product-function accuracy, styling coherence, shoe consistency, logo fidelity, model-on-foot visibility, text hierarchy, and 3:2 ratio.
 9. If the product position, shoe, or logo drifts, regenerate with stricter reference constraints before passing downstream.
 
@@ -163,6 +166,7 @@ Accept only if:
 - The Commercial Scene Director decision is approved and the poster follows its space, time, light, action, camera, and product-visibility plan.
 - The styling uses no more than three main colors and has a complete, restrained accessory hierarchy.
 - The title is short enough for poster layout.
+- The poster is a single-pass ChatGPT image-generation result, not a textless photograph with post-added typography.
 - There are 3 to 5 selling points.
 - Every selling point is supported by product attributes, style, or scene.
 - The copy sounds commercial and direct, not poetic or technical.

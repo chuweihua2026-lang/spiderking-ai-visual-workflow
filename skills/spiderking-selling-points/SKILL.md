@@ -45,6 +45,11 @@ Use this Skill after `spiderking-product-vision` has extracted shoe attributes a
 - Preserve the shoe one-to-one with the input reference. Do not redesign, recolor, or invent product details.
 - Use concise Chinese copy. Avoid long paragraphs and avoid claims not supported by visible product details.
 - The board must be automatically arranged and beautified: clear hierarchy, refined typography, clean spacing, commercial visual rhythm, and consistent brand mood.
+- Use the latest approved selling-points reference as a minimum visual baseline. Do not simplify it into a hero image plus plain text bullets.
+- Visual Selling Points must contain one strong shoe hero plus at least four magnified product-detail images with precise labels or callouts.
+- Functional Selling Points must contain three to four image-and-copy rows using real product crops or ChatGPT-generated product-detail supporting visuals; text-only rows do not pass.
+- Scenario Selling Points must contain four horizontal scene-only images in one vertical stack, each with a title and short supporting line.
+- Generate the complete 27:18 board as one ChatGPT image-generation result after all product details and scene references are approved. Do not manually rebuild or simplify the board with Pillow, canvas, or generic layout code.
 
 ## Three-Section Logic
 
@@ -230,6 +235,8 @@ Accept only if:
 - Every scenario card has an approved Commercial Scene Director decision, and cards differ in space, architecture, ground, time or light, and camera language.
 - Scenario cards do not include models, legs, feet, or shoes.
 - Text is short, readable, and visually integrated.
+- Detail density and commercial finish are at least equal to the approved reference: one product hero, four or more visual closeups, three to four functional image rows, and four vertically stacked scenario cards.
+- The final board is a single ChatGPT image-generation result and has not been replaced by a simplified post-composed board.
 - The layout is polished, clear, and not overcrowded.
 - The shoe remains consistent with the original reference.
 - All image generation used ChatGPT image generation only.

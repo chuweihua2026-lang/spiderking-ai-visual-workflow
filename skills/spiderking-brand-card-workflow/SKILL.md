@@ -62,6 +62,11 @@ The SpiderKing logo is not required as runtime input. The downstream poster and 
 - Do not hardcode outputs from any previous product.
 - Stop and regenerate a branch before layout if the shoe drifts, the logo is redrawn, the model hides the shoe, or the required aspect ratio is wrong.
 - Final layout should use approved upstream images directly when possible, preserving original image quality instead of asking AI to redraw the full card.
+- Treat the latest user-approved reference boards as minimum visual-quality baselines, not loose inspiration. Reject any output with lower detail density, weaker type hierarchy, larger meaningless blank areas, or simplified modules.
+- Use separate approval gates for `product_vision_preview.png`, `main_poster_3x2.png`, the three styling images, and `selling_points_board_27x18.png`. Do not run final layout until every gate is approved.
+- When the approved consumer and persona are female, prefer a sweet, clean, fair-skinned Chinese woman around 165 cm with a tall, slender visual proportion. Vary hairstyle, makeup, and optional hats across images without losing the approved consumer identity.
+- The main poster must be generated as one complete ChatGPT image-generation result containing model, scene, typography, selling points, new-arrival badge, and the supplied logo. Do not generate a textless photograph and add poster copy or logo afterward.
+- Post-generation deterministic processing may only resize with aspect-ratio preservation or place already approved complete modules into final templates. It may not redesign typography, simplify selling-point content, or replace an image-generation stage.
 
 ## Parallel Workflow
 

@@ -33,6 +33,9 @@ Use this Skill first in the SpiderKing brand card pipeline. The only product sou
 - If consistency conflicts with visual drama, protect shoe consistency first.
 - Classify product function before assigning a generic style label. Record primary category, subcategory, intended activity, terrain or use context, visible functional construction, fashion attributes, evidence confidence, and unsupported claims.
 - Do not infer waterproofing, medical benefits, absolute anti-slip performance, durability, or other functions that the images and supplied product information do not prove.
+- Use the latest approved three-view reference as a minimum visual baseline: three equal columns, strong product scale, clean white background, restrained dividers, and no large meaningless blank areas.
+- Under every shoe view, use exactly one four-Chinese-character primary selling point in large type and one four-Chinese-character supporting line in smaller type. Do not add redundant angle labels below these two lines in the final preview.
+- Keep the four-character captions visually prominent after the three views are combined; do not shrink an already approved product card into a small image inside another framed card.
 
 ## Workflow
 
@@ -176,8 +179,8 @@ Create `product_vision_preview.png` after the three product views are accepted.
 - Use a horizontal commercial product card layout.
 - Keep three clear equal columns: side view, 45-degree hero view, top view.
 - Use warm white or clean white background, soft commercial shadows, subtle dividers, and generous margins.
-- Add understated angle labels such as `正侧面`, `45°主视觉`, and `俯视细节`.
-- Put the two short selling-point text lines below each product view.
+- Put exactly one four-character primary selling point and one four-character supporting line below each product view.
+- Do not add a second row of redundant angle labels beneath the selling-point lines.
 - Use refined modern Chinese ecommerce typography: first line slightly bolder, second line lighter; dark gray text with optional small green accent.
 - Keep the structure bright, clear, and visually premium. Do not make the sheet look like a plain contact sheet.
 
@@ -194,6 +197,9 @@ Check every generated image for:
 - Material grain, gloss, fabric, leather, mesh, or knit texture
 - Color blocking and small accent colors
 - Toe, heel, collar, tongue, and opening shape
+- Three equal columns with product scale and information density at least equal to the approved reference
+- One large four-character headline plus one smaller four-character support line under each shoe view
+- No redundant bottom labels, nested cards, or large meaningless blank areas
 
 If any item fails, regenerate with ChatGPT image generation and a stricter reference prompt.
 

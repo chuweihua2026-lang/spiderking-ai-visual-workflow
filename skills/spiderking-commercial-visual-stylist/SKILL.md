@@ -59,6 +59,8 @@ Complete this sequence without skipping:
 - Make scene choice follow functional attributes first, then fashion expression.
 - Keep no more than three main colors and use a 60/30/10 color ratio unless the campaign has a documented reason to differ.
 - Use accessories sparingly but completely: select a watch when appropriate, jewelry, hat or hair detail, bag, and one or two personal charms when they support the concept.
+- When the approved campaign uses a young female model, prefer a sweet, clean, fair-skinned Chinese woman around 165 cm with a tall, slender visual proportion and natural body anatomy. Keep her approachable and commercially aspirational rather than severe or overly athletic.
+- Across a three-image female campaign, vary hairstyle and optional headwear: for example a high ponytail or half-up style, a low braid with bucket hat, and a clean low bun or short bob with a technical cap. Do not repeat the same hair silhouette or hat.
 - Never imitate a specific copyrighted campaign. Aim for the decision quality of an international luxury, sports, or activewear visual team while creating an original SpiderKing direction.
 
 ## Outputs
