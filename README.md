@@ -15,19 +15,23 @@ All image generation must use ChatGPT image generation only. Do not use Midjourn
 
 ```text
 shoe_images
-  -> spiderking-product-vision
-      -> spiderking-copywriting
-      -> spiderking-styling-engine
-      -> spiderking-selling-points
-          -> spiderking-layout-engine
-              -> final_brand_card_template_a.png
-              -> final_brand_card_template_b.png
+  -> spiderking-commercial-visual-stylist (mandatory pre-generation gate)
+      -> spiderking-product-vision
+          -> commercial styling revalidation
+              -> spiderking-copywriting
+              -> spiderking-styling-engine
+              -> spiderking-selling-points
+                  -> spiderking-layout-engine
+                      -> final_brand_card_template_a.png
+                      -> final_brand_card_template_b.png
 ```
 
 ## Skills
 
 - `spiderking-brand-card-workflow`: master parallel workflow orchestrator.
+- `spiderking-commercial-visual-stylist`: mandatory senior stylist and visual-director analysis before any image generation.
 - `spiderking-product-vision`: product three-view visual assets and extracted shoe attributes.
+- `spiderking-scene-engine`: product-function-led lifestyle scene selection.
 - `spiderking-copywriting`: 3:2 main poster with model, logo, title, selling points, and new-arrival badge.
 - `spiderking-styling-engine`: three separate 9:16 standing model scene images.
 - `spiderking-selling-points`: 27:18 selling-points board with visual, functional, and scenario sections.
@@ -45,6 +49,9 @@ Then provide 1 to 3 shoe product images and optional product direction.
 
 ## Core Rules
 
+- Every image-generation or image-editing call requires an approved `commercial_styling_decision.json` from `spiderking-commercial-visual-stylist`.
+- Complete person, brand, product, scene, clothing, footwear, bag, accessories, color, material, pose, camera, and commercial checks before model-image generation.
+- Product function controls the scene and outfit before fashion decoration; specialized outdoor, trail, business, or other footwear must not be reduced to generic sports styling.
 - Preserve the input shoe one-to-one across every generated image.
 - Product structure, colors, materials, stitching, logo, laces, decorative details, and proportions must not change.
 - The SpiderKing logo must use the uploaded asset and must not be redrawn or replaced.

@@ -29,6 +29,7 @@ Use this Skill last. It integrates all approved SpiderKing visual modules into f
 
 ## Hard Rules
 
+- When new visual content must be generated, invoke `spiderking-commercial-visual-stylist` first and require an approved `commercial_styling_decision.json`. Pure deterministic placement of approved assets does not require a new styling pass.
 - If any new image content must be generated, use ChatGPT image generation only.
 - Do not use Midjourney, Stable Diffusion, ComfyUI, or other image models.
 - Prefer deterministic layout composition from approved upstream PNG/JPG assets when the task is only final排版.
@@ -181,3 +182,4 @@ Accept only if:
 - Shoe details remain consistent across the whole card.
 - Approved upstream images are not unnecessarily redrawn, distorted, blurred, or degraded.
 - Any newly generated image content used ChatGPT image generation only.
+- Any newly generated image content follows an approved Commercial Visual Stylist decision.

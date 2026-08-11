@@ -1,0 +1,6 @@
+interface:
+  display_name: "SpiderKing Commercial Visual Stylist"
+  short_description: "Product-led styling gate before SpiderKing image generation"
+  default_prompt: "Use $spiderking-commercial-visual-stylist to approve the full commercial styling direction before generating a SpiderKing image."
+policy:
+  allow_implicit_invocation: true

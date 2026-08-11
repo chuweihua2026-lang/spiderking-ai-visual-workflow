@@ -16,6 +16,7 @@ Use this Skill after `spiderking-product-vision` and scene direction are availab
 ## Required Input
 
 - `extracted_attributes.json` or product style tags from Product Vision.
+- `commercial_styling_decision.json`: approved output from `spiderking-commercial-visual-stylist`.
 - `scene_spec.json` or scene direction from Scene Engine, if available.
 - `key_selling_points`: shoe selling points from Product Vision or main poster copy.
 - `shoe_reference`: original shoe image or validated product reference.
@@ -23,6 +24,10 @@ Use this Skill after `spiderking-product-vision` and scene direction are availab
 
 ## Hard Rules
 
+- Invoke `spiderking-commercial-visual-stylist` before generating each model image and load its detailed framework.
+- Do not generate when `commercial_styling_decision.json` is missing, stale for another product, or not `approved`.
+- Follow the mandatory analysis order before prompting: person, brand, product function, scene, clothing, footwear, bag, accessories, color, materials, pose/camera, and commercial optimization.
+- Let product function control the scene and outfit before trend styling. Do not reduce outdoor hiking, trail, business, or other specialized footwear to generic sportswear.
 - Generate exactly three different 9:16 model scene images.
 - Generate them as three separate image files, not one combined triptych, collage, grid, contact sheet, or multi-panel preview.
 - All models must be standing. Do not use sitting, crouching, kneeling, lying, jumping, or half-body-only poses.
@@ -43,16 +48,23 @@ Use this Skill after `spiderking-product-vision` and scene direction are availab
 - Hats are optional styling details. Add them only when they fit the scene and outfit, such as baseball cap, straw hat, beret, bucket hat, visor, or soft knit cap. Do not force every image to include a hat.
 - Add personal, distinctive details where suitable: custom charms, bag pendant, shoe charm, hair clip set, small brooch, scarf tie, keychain, phone charm, bracelet stack, necklace pendant, or delicate anklet. Keep them tasteful and do not cover the shoes.
 - Avoid long hems, wide pants, large bags, props, aggressive shadows, or poses that hide the shoe.
+- Use a maximum of three main outfit colors and document a 60/30/10 color plan for each scene.
+- Build a complete but restrained accessory layer when appropriate: watch, jewelry, hat or hair detail, bag, and one or two personalized charms. Accessories must support the character without overtaking the shoe.
+- For an outdoor hiking or trail shoe set, include at least one credible mountain trail, forest path, creek, rocky terrain, or light-hiking environment. A running track or generic city park cannot replace the authentic outdoor scene.
+- For an outdoor hiking or trail shoe set, use at least two long-bottom looks and three different bottom silhouettes. Do not default repeatedly to shorts or short skirts.
+- Performance leggings or yoga pants are valid for outdoor footwear when the scene, weather, silhouette, and shoe function support them.
 
 ## Styling Workflow
 
-1. Read product style, visible shoe details, selling points, and scene direction.
-2. Select three distinct scene concepts that fit the same shoe and selling points, with clearly different ground materials, background elements, and atmosphere.
-3. For each scene, create a unique standing model look: outfit, color palette, makeup, hairstyle, optional hat, jewelry, hair accessories, necklace, brooch or charms, bag, personal decorative details, and a non-repeating standing action.
-4. Write one professional atmospheric scene title for each image.
-5. Generate three separate 9:16 images with ChatGPT image generation, attaching or referencing the original shoe image. Do not generate a single combined preview sheet.
-6. Validate shoe visibility, standing pose, non-repetition, scene atmosphere, and typography.
-7. If any shoe detail drifts or any pose is not standing, regenerate that image before passing downstream.
+1. Read product style, detailed functional classification, visible shoe evidence, selling points, and scene direction.
+2. Invoke `spiderking-commercial-visual-stylist`; complete and approve the full commercial analysis before any generation call.
+3. Select three distinct scene concepts that fit the same shoe function and selling points, with clearly different terrain, ground materials, background elements, and atmosphere.
+4. For each scene, create a unique standing model look: outfit silhouette, bottom type, color ratio, materials, makeup, hairstyle, optional hat, watch, jewelry, hair details, bag, personal charms, and a non-repeating standing action.
+5. Run a cross-image diversity check before generation. Reject repeated bottom silhouettes, outerwear, bag types, hair, makeup, actions, or camera angles.
+6. Write one professional atmospheric scene title for each image.
+7. Generate three separate 9:16 images with ChatGPT image generation, attaching or referencing the original shoe image. Do not generate a single combined preview sheet.
+8. Validate shoe visibility, standing pose, non-repetition, function-scene fit, accessory completeness, scene atmosphere, and typography.
+9. If any shoe detail drifts, any pose is not standing, or product function is diluted, regenerate that image before passing downstream.
 
 ## Outputs
 
@@ -67,6 +79,15 @@ Use this Skill after `spiderking-product-vision` and scene direction are availab
 {
   "source_image_ref": "",
   "image_backend": "ChatGPT image generation",
+  "commercial_styling_decision_ref": "commercial_styling_decision.json",
+  "product_classification_snapshot": {
+    "primary_category": "",
+    "subcategory": "",
+    "intended_activities": [],
+    "terrain_or_use_context": [],
+    "visible_functional_features": [],
+    "fashion_attributes": []
+  },
   "model_profile": {
     "market": "Chinese young female model",
     "age_range": "",
@@ -86,6 +107,12 @@ Use this Skill after `spiderking-product-vision` and scene direction are availab
         "colors": [],
         "materials": [],
         "fit_notes": ""
+      },
+      "color_plan": {
+        "main_60_percent": "",
+        "support_30_percent": "",
+        "accent_10_percent": "",
+        "main_color_count": 3
       },
       "accessories": {
         "bag": "",
@@ -153,6 +180,16 @@ Use this Skill after `spiderking-product-vision` and scene direction are availab
 - Do not use more than one visually similar pavement-dominant scene unless the user explicitly requests it.
 - Vary viewing angle enough that the three images do not cause visual fatigue.
 
+### Outdoor Footwear Scene Set
+
+When the classification is hiking, trail, trekking, light outdoor, or urban outdoor, build the set from function-led concepts such as:
+
+- Mountain Trail Progression: high-waisted performance leggings or yoga pants, quick-dry base layer, light shell, trail pack, sports watch, and sun cap on a rocky slope or forest dirt trail.
+- Creekside Exploration: cuffed technical cargo trousers, functional top, light outdoor vest, bucket hat, carabiner charm, and waist bag around wooden bridges, creek stones, moss, or wetland vegetation.
+- Urban Gorpcore: tapered technical trousers, cropped sun-protection layer, technical crossbody bag, metal watch, layered necklace, earrings, and one or two personal bag charms near an outdoor shop or urban mountain-style district.
+
+Adapt colors, season, and gender to the current product. These are functional archetypes, not hardcoded outfits.
+
 ## Scene Title Rules
 
 - Add one scene title to each 9:16 image.
@@ -182,6 +219,8 @@ Accept only if:
 - Every model is standing and the shoes are clearly visible.
 - Standing actions and body directions do not repeat across the three images.
 - Outfit and accessories match the product style and scene.
+- The approved Commercial Visual Stylist decision exists and all applicable checks pass.
+- Product function remains visible in the scene and outfit logic.
 - Model styling, makeup, and hairstyle do not repeat across the three images.
 - Ground material, background type, and camera perspective do not repeat across the three images.
 - Each image has strong scene atmosphere.
@@ -189,3 +228,5 @@ Accept only if:
 - The model styling supports the shoe instead of competing with it.
 - Both shoes or the featured shoe are clearly visible.
 - The generated shoe details remain one-to-one with the input reference.
+- Outdoor footwear sets include an authentic outdoor environment, at least two long-bottom looks, three different bottom silhouettes, and no repeated short-skirt/shorts default.
+- Each look has an intentional accessory hierarchy and a valid 60/30/10 color plan without exceeding three main colors.

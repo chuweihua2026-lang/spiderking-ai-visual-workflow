@@ -18,9 +18,12 @@ Use this Skill first in the SpiderKing brand card pipeline. The only product sou
 
 - `shoe_image`: 1 to 3 paths, URLs, or attachment references for the original shoe images.
 - Optional `optional_product_hint`: known model name, category, selling context, target customer, or product description.
+- `commercial_styling_decision.json`: provisional approved decision from `spiderking-commercial-visual-stylist`.
 
 ## Hard Rules
 
+- Invoke `spiderking-commercial-visual-stylist` before creating any product-view image. For product-only views, person fields may be `not_applicable`.
+- Do not generate until the provisional `commercial_styling_decision.json.status` is `approved`.
 - Use ChatGPT image generation only for all image generation or image editing.
 - Do not use Midjourney, Stable Diffusion, ComfyUI, or any other image model.
 - Use the input shoe images as the only product references.
@@ -28,14 +31,18 @@ Use this Skill first in the SpiderKing brand card pipeline. The only product sou
 - Preserve one-to-one: shoe shape, silhouette, outsole, upper panels, stitching, logo, texture, material finish, lace or buckle system, hardware, color blocking, toe shape, heel shape, proportions, and visible wear details.
 - Only allow lighting cleanup, background cleanup, shadow refinement, angle normalization, and commercial polish.
 - If consistency conflicts with visual drama, protect shoe consistency first.
+- Classify product function before assigning a generic style label. Record primary category, subcategory, intended activity, terrain or use context, visible functional construction, fashion attributes, evidence confidence, and unsupported claims.
+- Do not infer waterproofing, medical benefits, absolute anti-slip performance, durability, or other functions that the images and supplied product information do not prove.
 
 ## Workflow
 
-1. Inspect all provided shoe images and identify the most reliable product details before generating views.
-2. Produce `extracted_attributes.json` with the schema below.
-3. Generate the three 3:2 product images with ChatGPT image generation, always attaching or referencing the original shoe image set.
-4. Validate each output against the consistency checklist.
-5. Regenerate with stricter reference constraints if any key detail drifts.
+1. Invoke `spiderking-commercial-visual-stylist` and approve a provisional product-led visual direction.
+2. Inspect all provided shoe images and identify the most reliable product details.
+3. Produce `extracted_attributes.json` with the schema below, separating visible evidence from inference.
+4. Revalidate `commercial_styling_decision.json` with the detailed attributes.
+5. Generate the three 3:2 product images with ChatGPT image generation, always attaching or referencing the original shoe image set.
+6. Validate each output against the consistency checklist.
+7. Regenerate with stricter reference constraints if any key detail drifts.
 
 ## Outputs
 
@@ -63,6 +70,17 @@ Use this Skill first in the SpiderKing brand card pipeline. The only product sou
     "extracted_attributes": {
       "shoe_type": "",
       "product_style": "",
+      "functional_classification": {
+        "primary_category": "",
+        "subcategory": "",
+        "intended_activities": [],
+        "terrain_or_use_context": [],
+        "activity_intensity": "",
+        "visible_functional_features": [],
+        "fashion_attributes": [],
+        "classification_evidence": [],
+        "unsupported_claims": []
+      },
       "main_colors": [],
       "materials": [],
       "sole_type": "",
@@ -82,6 +100,7 @@ Use this Skill first in the SpiderKing brand card pipeline. The only product sou
   "consistency_constraints": [
     "以输入鞋图为唯一产品参考，鞋子本体一比一还原，不改变结构、材质、颜色、比例、Logo 和细节"
   ],
+  "commercial_styling_decision_ref": "commercial_styling_decision.json",
   "image_prompts": {
     "side_view": "",
     "hero_45_view": "",
@@ -96,6 +115,8 @@ Use this Skill first in the SpiderKing brand card pipeline. The only product sou
 Every ChatGPT image-generation prompt must include this exact Chinese constraint:
 
 `以输入鞋图为唯一产品参考，鞋子本体一比一还原，不改变结构、材质、颜色、比例、Logo 和细节。`
+
+Every prompt must also follow the approved brand, product, color, material, composition, and commercial-photography decisions from `commercial_styling_decision.json`.
 
 Use these view-specific requirements:
 
@@ -143,3 +164,13 @@ After completing this Skill, output:
 4. 核心规则: ChatGPT image generation only; preserve the input shoe one-to-one; do not redesign, recolor, or alter structure; only improve clarity, lighting, white background, and commercial polish.
 5. 可复用接口: `SpiderKingProductVision.run({ shoe_image, optional_product_hint })`.
 6. 与下游 Skill 的连接方式: Pass `extracted_attributes.json` to Scene Engine, Styling Engine, and Copywriting; pass all three product views to Layout Engine.
+
+## Attribute Acceptance Gate
+
+Accept product classification only if:
+
+- The primary category and subcategory are more specific than a generic `运动鞋` label when visible evidence supports a specialized use.
+- Functional attributes cite visible construction or user-supplied facts.
+- Outdoor hiking or trail footwear remains outdoor-led in downstream scene and styling decisions.
+- Unsupported claims are explicitly listed and excluded from copy.
+- The revalidated `commercial_styling_decision.json.status` is `approved`.

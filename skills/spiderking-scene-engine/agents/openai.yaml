@@ -1,0 +1,4 @@
+interface:
+  display_name: "SpiderKing Scene Engine"
+  short_description: "Create lifestyle scenes from SpiderKing shoe attributes."
+  default_prompt: "Use $spiderking-scene-engine to derive a product-led lifestyle scene and ChatGPT image-generation brief while preserving shoe details."

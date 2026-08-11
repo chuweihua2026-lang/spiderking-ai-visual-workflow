@@ -17,11 +17,16 @@ Use this Skill after `spiderking-product-vision` has extracted shoe attributes a
 
 - `shoe_reference`: original shoe image or validated Product Vision output.
 - `extracted_attributes.json`: shoe structure, colors, materials, visual details, and style tags.
+- `commercial_styling_decision.json`: approved output from `spiderking-commercial-visual-stylist`.
 - Optional `key_selling_points`: known selling points from copywriting or user notes.
 - Optional `product_hint`: product name, launch theme, target customer, or channel.
 
 ## Hard Rules
 
+- Invoke `spiderking-commercial-visual-stylist` before generating detail expansions, supporting visuals, scenario images, or the final board.
+- Do not generate until `commercial_styling_decision.json.status` is `approved`.
+- Select scenarios from detailed product function first and fashion position second. Do not apply the same generic park, commute, and shopping scenes to every shoe.
+- Keep visible evidence, inferred benefit, and unsupported claims separate.
 - Output one horizontal image with aspect ratio `27:18`.
 - Divide the image into exactly three clear sections:
   1. Visual Selling Points
@@ -85,6 +90,7 @@ Good scenario directions include:
 - cafe street;
 - campus daily wear;
 - park or city leisure.
+- mountain trail, forest dirt path, rocky slope, creekside boardwalk, campsite, or outdoor district when the product is hiking, trail, trekking, or light outdoor footwear.
 
 Output requirements:
 
@@ -119,14 +125,15 @@ Output requirements:
 ## Workflow
 
 1. Inspect `shoe_reference` and `extracted_attributes.json`.
-2. Select the strongest visual, functional, and scenario selling points.
-3. Build a three-section layout plan for a `27:18` horizontal image.
-4. For visual selling points, generate or crop magnified product detail visuals and add callout labels.
-5. For functional selling points, create supporting visuals that match the benefit text.
-6. For scenario selling points, create 3 to 4 product-relevant horizontal rectangular scene-only cards in a vertical stacked layout, each with short text below or beside the image.
-7. Generate `selling_points_board_27x18.png` with ChatGPT image generation only.
-8. Output `selling_points_manifest.json` with selected points, copy, prompts, and validation notes.
-9. Regenerate if the shoe drifts, text is too long, or the three sections are not visually clear.
+2. Invoke `spiderking-commercial-visual-stylist` and approve the product-led commercial direction.
+3. Select the strongest visual, functional, and scenario selling points, excluding unsupported claims.
+4. Build a three-section layout plan for a `27:18` horizontal image.
+5. For visual selling points, generate or crop magnified product detail visuals and add callout labels.
+6. For functional selling points, create supporting visuals that match the visible structure and benefit text.
+7. For scenario selling points, create 3 to 4 function-led horizontal rectangular scene-only cards in a vertical stacked layout, each with short text below or beside the image.
+8. Generate `selling_points_board_27x18.png` with ChatGPT image generation only.
+9. Output `selling_points_manifest.json` with selected points, evidence, excluded claims, copy, prompts, and validation notes.
+10. Regenerate if the product position drifts, the shoe drifts, text is too long, or the three sections are not visually clear.
 
 ## Outputs
 
@@ -139,6 +146,7 @@ Output requirements:
 {
   "skill_name": "SpiderKing Selling Points",
   "image_backend": "ChatGPT image generation",
+  "commercial_styling_decision_ref": "commercial_styling_decision.json",
   "aspect_ratio": "27:18",
   "source_image_ref": "",
   "output_image": "selling_points_board_27x18.png",
@@ -153,7 +161,9 @@ Output requirements:
       "section_title": "功能卖点",
       "benefits": [],
       "supporting_visuals": [],
-      "image_prompt": ""
+      "image_prompt": "",
+      "evidence": [],
+      "excluded_unsupported_claims": []
     },
     "scenario_selling_points": {
       "section_title": "场景卖点",
@@ -202,6 +212,8 @@ Accept only if:
 - Functional selling points pair concise copy with matching supporting visuals.
 - Scenario selling points include 3 to 4 horizontal rectangular scene-only images in a vertical stacked layout, each with a short title and one short descriptive line.
 - Scenario cards are based on product style and usage context, and the scene visuals are materially and atmospherically distinct.
+- Scenario cards follow the approved detailed product-function classification rather than a generic sports template.
+- The Commercial Visual Stylist decision exists and is approved.
 - Scenario cards do not include models, legs, feet, or shoes.
 - Text is short, readable, and visually integrated.
 - The layout is polished, clear, and not overcrowded.
