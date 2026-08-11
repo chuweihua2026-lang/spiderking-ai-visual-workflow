@@ -49,6 +49,10 @@ Use this Skill last. It integrates all approved SpiderKing visual modules into f
   - product vision includes side single shoe, 45-degree pair, and top pair;
   - scene model section contains three separate `9:16` standing model images;
   - selling-points board is `27:18` horizontal.
+- Use aspect-ratio-preserving `contain` placement only. Never use `cover`, stretching, or fixed edge crops on approved upstream assets.
+- Template A must give all four quadrants equal visual containment. Modules that do not already have a border must receive a subtle border, matching corner radius, and inner padding consistent with the bordered modules; no image may touch the canvas edge.
+- Keep a consistent outer margin and horizontal/vertical gutter. A flush edge, missing module frame, or asymmetric boundary treatment is a hard failure.
+- Before delivery, inspect the complete card and export or inspect 100% crops of all four quadrants. Do not approve from a scaled full-card thumbnail alone.
 
 ## Final Layout Direction
 
@@ -63,7 +67,8 @@ Use this as the preferred approved template when the user asks for a clear comme
 3. Right upper area: `product_vision_preview.png`.
 4. Right lower area: `selling_points_board_27x18.png`.
 5. Include a clean SpiderKing logo/header zone if space allows.
-6. Keep the layout close to the confirmed reference: large image modules on a soft off-white canvas, thin dividers, generous margins, minimal extra labels, no heavy card frames.
+6. Keep the layout close to the confirmed reference: large image modules on a soft off-white canvas, thin pale-green borders, matching restrained corner radii, generous outer margins and gutters, minimal extra labels, and no heavy card frames.
+7. Ensure the left main-poster and scene-gallery modules have the same finished boundary treatment as the right-side modules instead of touching the canvas edges.
 
 ### Template B: Approved Vertical Integrated Card
 
@@ -182,6 +187,9 @@ Accept only if:
 - The layout has clear hierarchy, consistent style, and enough breathing room.
 - Shoe details remain consistent across the whole card.
 - Approved upstream images are not unnecessarily redrawn, distorted, blurred, or degraded.
+- Every module uses aspect-ratio-preserving containment; no product, model, typography, logo, shoe toe, heel, outsole, collar, or pull tab is cropped.
+- Template A has consistent outer margin, center gutters, and balanced border treatment across all four quadrants; no left-side module touches the canvas edge.
+- The complete card and all four quadrant crops were inspected at 100% before approval.
 - Any newly generated image content used ChatGPT image generation only.
 - Any newly generated image content follows an approved Commercial Visual Stylist decision.
 - Any newly generated environment follows an approved Commercial Scene Director decision.

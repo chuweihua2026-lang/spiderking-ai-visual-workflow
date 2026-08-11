@@ -67,6 +67,10 @@ The SpiderKing logo is not required as runtime input. The downstream poster and 
 - When the approved consumer and persona are female, prefer a sweet, clean, fair-skinned Chinese woman around 165 cm with a tall, slender visual proportion. Vary hairstyle, makeup, and optional hats across images without losing the approved consumer identity.
 - The main poster must be generated as one complete ChatGPT image-generation result containing model, scene, typography, selling points, new-arrival badge, and the supplied logo. Do not generate a textless photograph and add poster copy or logo afterward.
 - Post-generation deterministic processing may only resize with aspect-ratio preservation or place already approved complete modules into final templates. It may not redesign typography, simplify selling-point content, or replace an image-generation stage.
+- Product Vision must deliver text-free raw view assets plus a separately composed captioned preview. Do not use one fixed-height crop to remove text from mixed side, 45-degree, and top-view assets.
+- Require at least 4% clear safety space around every product silhouette. Any clipped toe, outsole, heel, collar, opening, or pull tab blocks downstream layout.
+- Final templates must use aspect-ratio-preserving containment, consistent outer margins and gutters, and visually balanced module frames. No module may touch the canvas edge.
+- Final approval requires both full-card review and 100% inspection of every quadrant and every Product Vision view. Thumbnail-only review is forbidden.
 
 ## Parallel Workflow
 
@@ -149,6 +153,8 @@ First render Product Vision through its product-only white-background route and 
 - `hero_45_view.png`: 3:2 45-degree view, one pair of shoes.
 - `top_view.png`: 3:2 top view, one pair of shoes.
 - `product_vision_preview.png`: polished three-view product preview.
+- The three raw product-view PNG files contain no typography; selling-point captions appear only in `product_vision_preview.png`.
+- Stop if any view has less than 4% clear space or if the top view omits either heel or pull tab.
 
 After Product Vision photography passes, run the following three branches concurrently.
 
@@ -267,6 +273,8 @@ Work:
   - Follow the approved reference image style:
     `/Users/chuchu/.codex/generated_images/019f0691-3b5c-7010-aff9-07647e7f0d97/ig_03cefcbc1441eb47016a3f49cfd1a8819998893d2df5377698.png`
 - Preserve upstream image quality. Do not unnecessarily redraw approved module images.
+- Use `contain` placement only, with consistent outer margin and gutters. Match the left-side module border, corner radius, and padding to the right-side modules instead of placing images flush to the card edge.
+- Produce a final QA record covering the full card, four 100% quadrant inspections, three 100% product-view inspections, edge safety, border consistency, and crop status.
 
 ## Final Package
 
@@ -392,6 +400,9 @@ Accept only if:
 - No environment generation begins unless the matching commercial scene decision is approved.
 - Main Poster, Styling Scenes, and Selling Points can run independently after Product Vision.
 - Final Layout receives all upstream assets.
+- All three raw product views are text-free and complete, each with at least 4% clear safety space; top view includes both complete heels and pull tabs.
+- Final modules use equal containment, consistent margins and gutters, and balanced border treatment; no module touches the canvas edge.
+- Full-card review, four quadrant checks, and three product-view checks were completed at 100%; any crop or missing boundary treatment is a one-vote rejection.
 - Final output includes exactly two approved templates:
   - Template A: left-right business card layout.
   - Template B: approved vertical integrated card layout.
