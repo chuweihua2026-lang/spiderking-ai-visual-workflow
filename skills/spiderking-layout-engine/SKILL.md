@@ -37,6 +37,11 @@ Use this Skill last. It integrates all approved SpiderKing visual modules into f
 - Use the uploaded SpiderKing logo asset. Do not redraw, replace, stylize, or invent the logo.
 - Keep the final card visually unified, clear, and ecommerce-ready.
 - Do not overcrowd the layout. Use clear vertical hierarchy and consistent spacing.
+- The final card must look like a finished SpiderKing marketing system, not a backend contact sheet, asset collection, or simple grid of uploaded images.
+- Do not add obvious tool labels such as `主海报`, `产品视图`, `穿搭场景`, or `卖点解析` as large section titles unless the approved reference template already uses that wording.
+- Do not wrap every upstream asset in heavy visible cards or boxed placeholders. Use clean white space, subtle separators, and the original module typography to create one unified layout.
+- Scene model images must be integrated as a polished scene gallery, not cropped into random material slots or contact-sheet cells.
+- Template B must not become a plain top-to-bottom stack. It must follow the approved vertical integrated card rhythm: brand header, hero poster, product view, scene gallery, selling-points section, and refined footer accents.
 - Preserve upstream module logic:
   - main poster is `3:2` horizontal;
   - product vision includes side single shoe, 45-degree pair, and top pair;
@@ -56,6 +61,7 @@ Use this as the preferred approved template when the user asks for a clear comme
 3. Right upper area: `product_vision_preview.png`.
 4. Right lower area: `selling_points_board_27x18.png`.
 5. Include a clean SpiderKing logo/header zone if space allows.
+6. Keep the layout close to the confirmed reference: large image modules on a soft off-white canvas, thin dividers, generous margins, minimal extra labels, no heavy card frames.
 
 ### Template B: Approved Vertical Integrated Card
 
@@ -67,6 +73,7 @@ Use this as the approved alternate template. It follows the already accepted gen
 3. Middle area: product vision three-view section.
 4. Lower area: three separate model scene images and selling-point modules.
 5. Keep the visual rhythm close to the approved reference image while preserving all current upstream asset content and shoe consistency.
+6. Avoid shrinking the selling-points board into a tiny thumbnail. It must remain readable enough to function as a marketing section.
 
 ### Optional Vertical Template
 
@@ -84,6 +91,7 @@ Only create another fully stacked vertical card if the user explicitly asks for 
 - Use subtle dividers, soft shadows, consistent rounded corners, and refined modern Chinese ecommerce typography.
 - Keep section titles short and premium.
 - Make the final output feel like one unified SpiderKing product card, not unrelated images pasted together.
+- Use the upstream asset typography and visual hierarchy as the primary visual language; additional labels should be subtle or omitted.
 
 ## Outputs
 
@@ -164,6 +172,8 @@ Accept only if:
 - The final output includes two different integrated brand card template images.
 - Template A follows the left-upper main poster, left-lower scenes, right-upper product vision, right-lower selling-points structure.
 - Template B follows the approved vertical integrated card reference image.
+- Neither template looks like a simple collage, contact sheet, or asset management board.
+- Extra section labels, thick boxes, and placeholder-like frames are avoided.
 - The uploaded SpiderKing logo is used and remains readable.
 - The main poster, product vision, model scene gallery, and selling-points board are all present.
 - The three model scene images remain visually separate.
