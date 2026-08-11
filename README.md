@@ -55,8 +55,9 @@ Then provide 1 to 3 shoe product images and optional product direction.
 
 ## Core Rules
 
-- Every generated image obeys: `商品识别 -> 消费者画像 -> 人物选择 -> 服装搭配 -> 鞋包搭配 -> 场景选择 -> 商业摄影生成`.
-- No stage may be reordered, merged, or skipped. A non-applicable stage must be recorded as `not_applicable` rather than silently omitted.
+- Product-only white-background images obey: `商品识别 -> 结构一致性分析 -> 角度与数量规划 -> 白底商业化生成 -> 一致性质检`.
+- Model, lifestyle-scene, advertising, and scenario-storytelling images obey: `商品识别 -> 消费者画像 -> 人物选择 -> 服装搭配 -> 鞋包搭配 -> 场景选择 -> 商业摄影生成`.
+- The commercial-image stages may not be reordered, merged, or skipped. Product-only renders do not create consumer, persona, styling, or scene files filled with `not_applicable`.
 - Preserve the strict stage order: product recognition -> consumer profile -> persona selection -> clothing styling -> shoe-bag-accessory styling -> scene selection -> commercial photography -> final layout.
 - Product recognition runs before any consumer, person, outfit, bag, accessory, or scene decision and does not require image generation.
 - Keep `product_recognition.json`, `consumer_profile.json`, and `persona_selection.json` as separate approved audit artifacts.

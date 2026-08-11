@@ -40,8 +40,9 @@ The SpiderKing logo is not required as runtime input. The downstream poster and 
 
 ## Global Hard Rules
 
-- Every image generation must obey this exact sequence: `商品识别 -> 消费者画像 -> 人物选择 -> 服装搭配 -> 鞋包搭配 -> 场景选择 -> 商业摄影生成`.
-- Do not reorder, merge, or skip these stages. For product-only imagery, person, clothing, shoe-bag, or scene fields may be explicitly marked `not_applicable`, but their gate files and applicability decisions must still exist before generation.
+- Use two explicit generation routes. Product-only white-background assets follow `商品识别 -> 结构一致性分析 -> 角度与数量规划 -> 白底商业化生成 -> 一致性质检`.
+- Images containing a person, lifestyle environment, advertising scene, or scenario storytelling must obey `商品识别 -> 消费者画像 -> 人物选择 -> 服装搭配 -> 鞋包搭配 -> 场景选择 -> 商业摄影生成` without reordering, merging, or skipping stages.
+- Do not create consumer, persona, styling, or scene files filled only with `not_applicable` for a product-only white-background render. Those gates begin only when the workflow enters commercial human or scene imagery.
 - Do not select a consumer, person, outfit, bag, accessory, or scene before `product_recognition.json.status` is `approved`.
 - Do not merge consumer profile and person selection into a generic model prompt. Preserve `consumer_profile.json` and `persona_selection.json` as separate auditable outputs.
 - Before every image-generation or image-editing call, invoke or revalidate `spiderking-commercial-visual-stylist` and load its detailed framework.
@@ -137,7 +138,7 @@ Output and gate:
 
 ## Stage 7: Commercial Photography Generation
 
-First render Product Vision with the approved commercial decisions:
+First render Product Vision through its product-only white-background route and pass its consistency review:
 
 - `side_view.png`: 3:2 side view, one single shoe.
 - `hero_45_view.png`: 3:2 45-degree view, one pair of shoes.
