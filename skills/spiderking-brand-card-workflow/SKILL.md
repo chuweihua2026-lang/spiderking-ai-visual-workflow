@@ -38,6 +38,7 @@ The SpiderKing logo is not required as runtime input. The downstream poster and 
 ## Global Hard Rules
 
 - Before every image-generation or image-editing call, invoke or revalidate `spiderking-commercial-visual-stylist` and load its detailed framework.
+- Select every human subject through the persona chain: product price band -> target consumer -> purchase decision-maker -> actual user -> use scene -> persona ID. Do not default to a young female model.
 - Do not call ChatGPT image generation unless `commercial_styling_decision.json.status` is `approved` and all applicable pre-generation checks pass.
 - Complete the required order: person, brand, product, scene, clothing, footwear, bag, accessories, color, materials, pose/camera, and commercial optimization.
 - Product function controls scene and styling before fashion decoration. Do not reduce hiking, trail, business, or other specialized footwear to generic sports styling.
@@ -124,7 +125,7 @@ Output:
 Work:
 
 - Generate a 3:2 horizontal commercial poster.
-- Chinese young female model must wear the product shoes.
+- Use the approved human persona from `commercial_styling_decision.json`; the model or family group must credibly represent the target consumer, user, or purchase decision-maker.
 - Select representative scene based on product style, try-on context, and selling points.
 - Add outfit, accessories, jewelry, hair accessories, necklace, brooch/charms, and style-consistent bag.
 - Include SpiderKing logo, main title, core selling points, and new-arrival badge.
@@ -151,6 +152,7 @@ Output:
 Work:
 
 - Generate exactly three separate 9:16 model scene images.
+- Use the approved persona ID or documented persona variation from `commercial_styling_decision.json`.
 - All models must be standing.
 - Standing pose, body direction, outfit, makeup, hairstyle, accessories, bag, scene material, background, and camera perspective must not repeat.
 - Each image includes professional atmospheric scene-title typography.

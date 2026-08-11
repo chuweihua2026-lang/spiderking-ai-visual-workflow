@@ -2,7 +2,7 @@
 name: spiderking-copywriting
 description: >-
   Generate the 3:2 horizontal main poster for SpiderKing shoe marketing, including Chinese
-  ecommerce poster copy, a young Chinese female model wearing the shoes, logo
+  ecommerce poster copy, a product-appropriate consumer persona wearing the shoes, logo
   placement guidance, new-arrival badge text, and 3 to 5 selling points. Use
   after product, scene, and styling context exists. All image generation must use
   ChatGPT image generation only.
@@ -34,7 +34,7 @@ Use this Skill after Product Vision, Scene Engine, and Styling Engine are availa
 - Follow the approved person, brand, product-function, scene, clothing, footwear, bag, accessory, color, material, pose, and commercial-photography decisions.
 - Product function determines the representative scene before generic campaign aesthetics. Outdoor hiking or trail footwear must not default to a running track or generic sports styling.
 - Main poster aspect ratio must be `3:2` horizontal.
-- Main visual must be a young Chinese female model wearing the input shoes.
+- Main visual must use the approved product-appropriate consumer persona wearing or correctly using the input product. Do not default to a young female model.
 - Use ChatGPT image generation only for the poster image. Do not use Midjourney, Stable Diffusion, ComfyUI, or other image models.
 - Attach or reference the original shoe image for every poster generation.
 - Preserve the shoe one-to-one: shoe shape, upper structure, sole, colors, materials, logo, stitching, laces, decorations, and proportions must not change.
@@ -47,7 +47,7 @@ Use this Skill after Product Vision, Scene Engine, and Styling Engine are availa
 ## Poster Direction
 
 - Composition: 3:2 horizontal commercial ecommerce poster.
-- Subject: Chinese young female model, natural sweet style, realistic body proportions, wearing the product shoes clearly.
+- Subject: the approved persona ID from `commercial_styling_decision.json`, with credible age, gender, occupation or family identity, purchasing power, temperament, and realistic body proportions.
 - Framing: full-body or 3/4 body framing, shoes visible and not cropped.
 - Scene: choose the most representative scene from product style, try-on context, and selling points. Do not choose randomly.
 - Styling: match the outfit to this shoe style, scene, and selling points. The outfit must support the shoes and not overpower them.
@@ -96,7 +96,8 @@ Use this Skill after Product Vision, Scene Engine, and Styling Engine are availa
   ],
   "tone": "commercial, simple, high conversion",
   "model_on_foot_requirements": {
-    "model_profile": "Chinese young female model",
+    "persona_id": "",
+    "model_profile": "approved target-consumer persona",
     "shoe_visibility": "shoes clearly worn on feet, not blocked or cropped",
     "styling_source": "styling_spec.json or generated from product style, scene, and selling points"
   },

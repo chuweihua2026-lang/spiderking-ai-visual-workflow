@@ -3,7 +3,7 @@ name: spiderking-styling-engine
 description: >-
   Generate three 9:16 different-scene standing model images for SpiderKing
   footwear marketing from product style, selling points, and scene direction.
-  Use when Codex must create Chinese female model styling, non-repeating outfits,
+  Use when Codex must create product-appropriate consumer-persona styling, non-repeating outfits,
   accessories, bags, atmospheric scenes, scene-title poster typography, and shoe
   visibility constraints. All image generation must use ChatGPT image generation
   only.
@@ -28,6 +28,7 @@ Use this Skill after `spiderking-product-vision` and scene direction are availab
 - Do not generate when `commercial_styling_decision.json` is missing, stale for another product, or not `approved`.
 - Follow the mandatory analysis order before prompting: person, brand, product function, scene, clothing, footwear, bag, accessories, color, materials, pose/camera, and commercial optimization.
 - Let product function control the scene and outfit before trend styling. Do not reduce outdoor hiking, trail, business, or other specialized footwear to generic sportswear.
+- Select age, gender, occupation, family status, purchasing power, clothing style, temperament, and scene from the approved persona database decision. Do not default to the youngest or most attractive model.
 - Generate exactly three different 9:16 model scene images.
 - Generate them as three separate image files, not one combined triptych, collage, grid, contact sheet, or multi-panel preview.
 - All models must be standing. Do not use sitting, crouching, kneeling, lying, jumping, or half-body-only poses.
@@ -89,8 +90,15 @@ Use this Skill after `spiderking-product-vision` and scene direction are availab
     "fashion_attributes": []
   },
   "model_profile": {
-    "market": "Chinese young female model",
+    "persona_id": "",
+    "persona_name": "",
+    "market": "approved target-consumer persona",
     "age_range": "",
+    "gender": "",
+    "occupation_or_identity": "",
+    "family_status": "",
+    "purchasing_power": "",
+    "purchase_decision_role": "",
     "overall_mood": ""
   },
   "scene_images": [
@@ -220,6 +228,7 @@ Accept only if:
 - Standing actions and body directions do not repeat across the three images.
 - Outfit and accessories match the product style and scene.
 - The approved Commercial Visual Stylist decision exists and all applicable checks pass.
+- The selected persona is a credible consumer, actual user, or purchase decision-maker for the product; age, occupation, family identity, purchasing power, clothing, and scene are coherent.
 - Product function remains visible in the scene and outfit logic.
 - Model styling, makeup, and hairstyle do not repeat across the three images.
 - Ground material, background type, and camera perspective do not repeat across the three images.

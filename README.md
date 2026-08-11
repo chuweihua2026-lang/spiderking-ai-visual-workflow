@@ -50,6 +50,7 @@ Then provide 1 to 3 shoe product images and optional product direction.
 ## Core Rules
 
 - Every image-generation or image-editing call requires an approved `commercial_styling_decision.json` from `spiderking-commercial-visual-stylist`.
+- Every human subject is selected through the built-in persona database using product price band, target consumer, purchase decision-maker, actual user, and use scene; the workflow does not default to the youngest or most attractive model.
 - Complete person, brand, product, scene, clothing, footwear, bag, accessories, color, material, pose, camera, and commercial checks before model-image generation.
 - Product function controls the scene and outfit before fashion decoration; specialized outdoor, trail, business, or other footwear must not be reduced to generic sports styling.
 - Preserve the input shoe one-to-one across every generated image.

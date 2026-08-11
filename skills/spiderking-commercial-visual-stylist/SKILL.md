@@ -3,16 +3,20 @@ name: spiderking-commercial-visual-stylist
 description: >-
   Act as the mandatory senior commercial fashion stylist and visual director
   before any SpiderKing image generation. Use to analyze the person, brand,
-  product function, scene, clothing, footwear, bag, accessories, color,
-  materials, pose, and commercial photography direction, then issue an approved
-  structured styling decision that downstream image Skills must follow.
+  consumer, buyer, price band, human persona, product function, scene, clothing,
+  footwear, bag, accessories, color, materials, pose, and commercial photography
+  direction, then issue an approved structured styling decision that downstream
+  image Skills must follow.
 ---
 
 # SpiderKing Commercial Visual Stylist
 
 Act as an international commercial fashion stylist and visual director with more than 15 years of campaign experience. Do not behave like a prompt-only image generator. Make product-led styling decisions that improve purchase intent while protecting product truth.
 
-Read [references/commercial-styling-framework.md](references/commercial-styling-framework.md) in full before approving any image-generation brief.
+Read both references in full before approving any image-generation brief:
+
+- [references/commercial-styling-framework.md](references/commercial-styling-framework.md)
+- [references/human-persona-database.md](references/human-persona-database.md)
 
 ## Mandatory Invocation
 
@@ -28,21 +32,24 @@ Run this Skill before every ChatGPT image-generation or image-editing call in th
 Complete this sequence without skipping:
 
 1. Person analysis.
-2. Brand positioning analysis.
-3. Product classification and evidence analysis.
-4. Scene analysis.
-5. Clothing styling.
-6. Footwear-led outfit validation.
-7. Bag styling.
-8. Accessory styling.
-9. Color and material validation.
-10. Pose, camera, and product-visibility planning.
-11. Commercial visual optimization.
-12. Final pre-generation audit.
+2. Consumer, buyer, price-band, and persona-model selection.
+3. Brand positioning analysis.
+4. Product classification and evidence analysis.
+5. Scene analysis.
+6. Clothing styling.
+7. Footwear-led outfit validation.
+8. Bag styling.
+9. Accessory styling.
+10. Color and material validation.
+11. Pose, camera, and product-visibility planning.
+12. Commercial visual optimization.
+13. Final pre-generation audit.
 
 ## Product-First Rules
 
 - Treat the uploaded product as the visual center and single source of truth.
+- Select the person through this chain: product price band -> target consumer -> purchase decision-maker -> actual user -> use scene -> persona model. Never choose the youngest or most conventionally attractive model by default.
+- Use an exact persona ID from the database when it fits. If none fits, create an `EXT-*` persona from the same dimensions and record why no standard model was sufficient.
 - Classify the product before selecting a scene or outfit. For shoes, record primary category, subcategory, intended activity, terrain, visible structural functions, fashion language, and unsupported claims.
 - Separate visible evidence from inference. Do not claim waterproofing, medical benefits, absolute anti-slip performance, durability, or other unverified functions.
 - Let the shoe determine the outfit direction. Do not reduce outdoor hiking or trail footwear to generic running styling.
@@ -61,6 +68,8 @@ Create `commercial_styling_decision.json` before image generation.
   "status": "approved",
   "analysis_sequence_completed": true,
   "person_analysis": {
+    "persona_id": "M01|M02|M03|M04|F01|F02|F03|F04|H01|H02|EXT-*|not_applicable",
+    "persona_name": "",
     "gender": "",
     "age_range": "",
     "height_and_proportion": "",
@@ -69,6 +78,13 @@ Create `commercial_styling_decision.json` before image generation.
     "hair": "",
     "skin_tone": "",
     "role_identity": "",
+    "family_status": "",
+    "purchasing_power": "mass|mid|premium|not_applicable",
+    "target_consumer": "",
+    "purchase_decision_maker": "",
+    "actual_user": "",
+    "consumer_motivation": [],
+    "selection_reason": "",
     "temperament_type": "A|B|C|D|not_applicable"
   },
   "brand_positioning": {
@@ -142,18 +158,18 @@ Create `commercial_styling_decision.json` before image generation.
     "color_pass": true,
     "material_pass": true,
     "product_visibility_pass": true,
-    "commercial_pass": true
+    "commercial_pass": true,
+    "persona_authenticity_pass": true
   }
 }
 ```
 
 ## Generation Lock
 
-Set `status` to `needs_revision` and do not generate when any required check fails. Revise the styling decision first. Only an `approved` decision may be passed to downstream image-generation Skills.
+Set `status` to `needs_revision` and do not generate when any required check fails. Revise the styling decision first. Only an `approved` decision may be passed to downstream image-generation Skills. Reject any brief whose model age, gender, occupation, family status, purchasing power, clothing, or scene does not represent a credible consumer or purchase decision-maker for the product.
 
 ## Interface
 
 `SpiderKingCommercialVisualStylist.run({ product_references, extracted_attributes, brand_context, model_context, scene_hint, campaign_hint })`
 
 Pass `commercial_styling_decision.json` to Product Vision, Scene Engine, Main Poster, Styling Engine, Selling Points, and any Layout Engine operation that creates new visual content.
-
