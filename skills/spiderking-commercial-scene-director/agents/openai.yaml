@@ -1,0 +1,6 @@
+interface:
+  display_name: "SpiderKing Commercial Scene Director"
+  short_description: "Product-led scene direction before SpiderKing scene generation"
+  default_prompt: "Use $spiderking-commercial-scene-director to approve the scene, light, time, space, action, and camera language before generating a SpiderKing campaign image."
+policy:
+  allow_implicit_invocation: true

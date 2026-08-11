@@ -17,6 +17,7 @@ Use this Skill after `spiderking-product-vision` and scene direction are availab
 
 - `extracted_attributes.json` or product style tags from Product Vision.
 - `commercial_styling_decision.json`: approved output from `spiderking-commercial-visual-stylist`.
+- `commercial_scene_decisions`: three approved decisions from `spiderking-commercial-scene-director`, one for each 9:16 image.
 - `scene_spec.json` or scene direction from Scene Engine, if available.
 - `key_selling_points`: shoe selling points from Product Vision or main poster copy.
 - `shoe_reference`: original shoe image or validated product reference.
@@ -25,7 +26,9 @@ Use this Skill after `spiderking-product-vision` and scene direction are availab
 ## Hard Rules
 
 - Invoke `spiderking-commercial-visual-stylist` before generating each model image and load its detailed framework.
+- Invoke `spiderking-commercial-scene-director` before each model image and load its commercial scene database.
 - Do not generate when `commercial_styling_decision.json` is missing, stale for another product, or not `approved`.
+- Do not generate an image when its matching `commercial_scene_decision_0N.json` is missing, stale, or not `approved`.
 - Follow the mandatory analysis order before prompting: person, brand, product function, scene, clothing, footwear, bag, accessories, color, materials, pose/camera, and commercial optimization.
 - Let product function control the scene and outfit before trend styling. Do not reduce outdoor hiking, trail, business, or other specialized footwear to generic sportswear.
 - Select age, gender, occupation, family status, purchasing power, clothing style, temperament, and scene from the approved persona database decision. Do not default to the youngest or most attractive model.
@@ -38,6 +41,7 @@ Use this Skill after `spiderking-product-vision` and scene direction are availab
 - Scene materials and backgrounds must not feel repetitive. Do not reuse the same stone pavement look across all images.
 - Use varied ground and background materials when appropriate: grass, wooden bridge, cobblestone, pebble path, cafe tile, asphalt, steps, storefront, water edge, garden path, campus lane, or city terrace.
 - Camera angle and viewing perspective must not be too similar across the three images. Vary full-body framing, low-angle shoe emphasis, walking-stance standing pose, side-facing standing pose, or 3/4 standing composition while keeping shoes visible.
+- The three Scene Director diversity signatures must differ in scene family, ground material, architecture, time or lighting, action, camera height, and viewing direction.
 - Add poster typography to each image. The text content is a scene title, not a blunt location label.
 - Scene title text must sound professional and atmospheric, such as a campaign phrase. Avoid overly direct titles like `公园`, `街头`, or `商场`.
 - Use ChatGPT image generation only for all model images. Do not use Midjourney, Stable Diffusion, ComfyUI, or other image models.
@@ -59,7 +63,7 @@ Use this Skill after `spiderking-product-vision` and scene direction are availab
 
 1. Read product style, detailed functional classification, visible shoe evidence, selling points, and scene direction.
 2. Invoke `spiderking-commercial-visual-stylist`; complete and approve the full commercial analysis before any generation call.
-3. Select three distinct scene concepts that fit the same shoe function and selling points, with clearly different terrain, ground materials, background elements, and atmosphere.
+3. Invoke `spiderking-commercial-scene-director` three times to approve three product-led scene decisions. Pass earlier diversity signatures into later calls.
 4. For each scene, create a unique standing model look: outfit silhouette, bottom type, color ratio, materials, makeup, hairstyle, optional hat, watch, jewelry, hair details, bag, personal charms, and a non-repeating standing action.
 5. Run a cross-image diversity check before generation. Reject repeated bottom silhouettes, outerwear, bag types, hair, makeup, actions, or camera angles.
 6. Write one professional atmospheric scene title for each image.
@@ -81,6 +85,11 @@ Use this Skill after `spiderking-product-vision` and scene direction are availab
   "source_image_ref": "",
   "image_backend": "ChatGPT image generation",
   "commercial_styling_decision_ref": "commercial_styling_decision.json",
+  "commercial_scene_decision_refs": [
+    "commercial_scene_decision_01.json",
+    "commercial_scene_decision_02.json",
+    "commercial_scene_decision_03.json"
+  ],
   "product_classification_snapshot": {
     "primary_category": "",
     "subcategory": "",
@@ -107,6 +116,7 @@ Use this Skill after `spiderking-product-vision` and scene direction are availab
       "aspect_ratio": "9:16",
       "scene_concept": "",
       "scene_title": "",
+      "commercial_scene_decision_ref": "commercial_scene_decision_01.json",
       "standing_pose": true,
       "outfit_design": {
         "top": "",
@@ -228,6 +238,7 @@ Accept only if:
 - Standing actions and body directions do not repeat across the three images.
 - Outfit and accessories match the product style and scene.
 - The approved Commercial Visual Stylist decision exists and all applicable checks pass.
+- Three approved Commercial Scene Director decisions exist and their diversity signatures do not repeat.
 - The selected persona is a credible consumer, actual user, or purchase decision-maker for the product; age, occupation, family identity, purchasing power, clothing, and scene are coherent.
 - Product function remains visible in the scene and outfit logic.
 - Model styling, makeup, and hairstyle do not repeat across the three images.

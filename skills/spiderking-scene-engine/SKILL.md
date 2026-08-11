@@ -16,11 +16,14 @@ Use this Skill after `spiderking-product-vision`. It creates one optimal lifesty
 - `shoe_attributes.json` from Product Vision.
 - `source_image_ref` or product reference image from Product Vision.
 - `commercial_styling_decision.json`: approved output from `spiderking-commercial-visual-stylist`.
+- `commercial_scene_decision.json`: approved output from `spiderking-commercial-scene-director`.
 
 ## Hard Rules
 
 - Invoke `spiderking-commercial-visual-stylist` before generating the scene.
+- Invoke `spiderking-commercial-scene-director`, read its commercial scene database, and approve the scene before generation.
 - Do not generate until `commercial_styling_decision.json.status` is `approved`.
+- Do not generate until `commercial_scene_decision.json.status` is `approved`.
 - Use ChatGPT image generation only. Do not use image2, Midjourney, Stable Diffusion, ComfyUI, Gemini image generation, or any other image model.
 - Attach the original shoe image or validated product reference to every ChatGPT image-generation call.
 - Derive the scene from detailed product function first and fashion style second, not from hardcoded examples.
@@ -54,6 +57,7 @@ If another scene is clearly better, use it and explain the reason in `scene_spec
   "source_image_ref": "",
   "image_backend": "ChatGPT image generation",
   "commercial_styling_decision_ref": "commercial_styling_decision.json",
+  "commercial_scene_decision_ref": "commercial_scene_decision.json",
   "selected_scene": "",
   "scene_rationale": "",
   "environment_details": {
@@ -88,6 +92,7 @@ Accept only if:
 
 - The selected scene clearly matches the shoe style.
 - The selected scene matches the detailed product function and approved Commercial Visual Stylist decision.
+- The approved Commercial Scene Director decision matches product, consumer, use context, brand feeling, space, time, light, action, and camera language.
 - The shoe is visible enough for ecommerce marketing.
 - The shoe details match the input reference one-to-one.
 - The image is 9:16 or can be cleanly cropped to 9:16 without losing shoe visibility.

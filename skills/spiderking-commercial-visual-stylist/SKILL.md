@@ -35,7 +35,7 @@ Complete this sequence without skipping:
 2. Consumer, buyer, price-band, and persona-model selection.
 3. Brand positioning analysis.
 4. Product classification and evidence analysis.
-5. Scene analysis.
+5. Preliminary use-context and scene-needs analysis.
 6. Clothing styling.
 7. Footwear-led outfit validation.
 8. Bag styling.
@@ -173,3 +173,5 @@ Set `status` to `needs_revision` and do not generate when any required check fai
 `SpiderKingCommercialVisualStylist.run({ product_references, extracted_attributes, brand_context, model_context, scene_hint, campaign_hint })`
 
 Pass `commercial_styling_decision.json` to Product Vision, Scene Engine, Main Poster, Styling Engine, Selling Points, and any Layout Engine operation that creates new visual content.
+
+When an image includes an environment, pass this decision to `spiderking-commercial-scene-director`. Treat the stylist's scene field as a functional requirement; the Scene Director owns the final location, space, architecture, time, lighting, action, and camera decision.

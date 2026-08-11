@@ -21,6 +21,7 @@ Use this Skill after Product Vision, Scene Engine, and Styling Engine are availa
 
 - `shoe_attributes.json`
 - `commercial_styling_decision.json`: approved output from `spiderking-commercial-visual-stylist`.
+- `commercial_scene_decision_main.json`: approved output from `spiderking-commercial-scene-director`.
 - `scene_spec.json`
 - Optional `styling_spec.json`; if missing, create styling from product style, scene, and selling points.
 - Optional `brand_logo`; default to `assets/spiderking-logo.jpg`.
@@ -30,7 +31,9 @@ Use this Skill after Product Vision, Scene Engine, and Styling Engine are availa
 ## Hard Rules
 
 - Invoke `spiderking-commercial-visual-stylist` before poster generation and load its detailed framework.
+- Invoke `spiderking-commercial-scene-director` before poster generation and load its commercial scene database.
 - Do not generate until `commercial_styling_decision.json.status` is `approved`.
+- Do not generate until `commercial_scene_decision_main.json.status` is `approved`.
 - Follow the approved person, brand, product-function, scene, clothing, footwear, bag, accessory, color, material, pose, and commercial-photography decisions.
 - Product function determines the representative scene before generic campaign aesthetics. Outdoor hiking or trail footwear must not default to a running track or generic sports styling.
 - Main poster aspect ratio must be `3:2` horizontal.
@@ -61,7 +64,7 @@ Use this Skill after Product Vision, Scene Engine, and Styling Engine are availa
 
 1. Read product, scene, styling, logo, and shoe references.
 2. Invoke `spiderking-commercial-visual-stylist` and approve the full commercial styling decision.
-3. Choose the most representative scene based first on product function, then try-on context, fashion positioning, and selling points.
+3. Invoke `spiderking-commercial-scene-director`; approve the representative location, space, architecture, time, light, action, camera, and commercial hierarchy based first on product function, consumer, and use context.
 4. Build model styling from the approved decision: outfit silhouette, bag, watch, jewelry, hair or hat detail, one or two personal charms, materials, and 60/30/10 color balance.
 5. Write concise Chinese poster copy supported by visible shoe attributes and the credible use scene.
 6. Build a ChatGPT image-generation prompt for one 3:2 horizontal main poster with the model wearing the shoes.
@@ -82,6 +85,7 @@ Use this Skill after Product Vision, Scene Engine, and Styling Engine are availa
   "language": "zh-CN",
   "image_backend": "ChatGPT image generation",
   "commercial_styling_decision_ref": "commercial_styling_decision.json",
+  "commercial_scene_decision_ref": "commercial_scene_decision_main.json",
   "poster_aspect_ratio": "3:2",
   "main_poster_image": "main_poster_3x2.png",
   "main_title": "",
@@ -147,6 +151,7 @@ Accept only if:
 - The uploaded logo is used without redrawing or replacement.
 - Scene, outfit, accessories, jewelry, hair details, and bag all fit the product style and selling points.
 - The Commercial Visual Stylist decision is approved and the poster follows its product-function classification.
+- The Commercial Scene Director decision is approved and the poster follows its space, time, light, action, camera, and product-visibility plan.
 - The styling uses no more than three main colors and has a complete, restrained accessory hierarchy.
 - The title is short enough for poster layout.
 - There are 3 to 5 selling points.
