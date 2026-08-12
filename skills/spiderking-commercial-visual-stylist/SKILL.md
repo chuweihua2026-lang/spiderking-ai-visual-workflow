@@ -53,6 +53,10 @@ Complete this sequence without skipping:
 - Treat the uploaded product as the visual center and single source of truth.
 - Select the person through this chain: product price band -> target consumer -> purchase decision-maker -> actual user -> use scene -> persona model. Never choose the youngest or most conventionally attractive model by default.
 - Use an exact persona ID from the database when it fits. If none fits, create an `EXT-*` persona from the same dimensions and record why no standard model was sufficient.
+- For a multi-image campaign of the same shoe, the model face does not need to remain identical. Select one to three approved persona IDs when multiple credible consumers strengthen scene and styling diversity.
+- Keep the approved consumer profile, age-band logic, purchasing power, product function, and brand positioning coherent across all selected personas. Different faces must not become contradictory consumer identities.
+- Record a separate `persona_id` and reference image for every model-containing output. Do not blend facial features from multiple persona boards into one synthetic identity.
+- Use the six approved female reference boards in `assets/personas/female/` when their consumer role fits: `F01-SWEET-165`, `F02-OUTDOOR-167`, `F03-URBAN-168`, `F04-CAMPUS-163`, `F05-TREND-170`, and `F06-ELEGANT-165`.
 - Classify the product before selecting a scene or outfit. For shoes, record primary category, subcategory, intended activity, terrain, visible structural functions, fashion language, and unsupported claims.
 - Separate visible evidence from inference. Do not claim waterproofing, medical benefits, absolute anti-slip performance, durability, or other unverified functions.
 - Let the shoe determine the outfit direction. Do not reduce outdoor hiking or trail footwear to generic running styling.
@@ -97,7 +101,7 @@ Create these files in order:
   "stage": "persona_selection",
   "status": "approved",
   "consumer_profile_ref": "consumer_profile.json",
-  "persona_id": "M01|M02|M03|M04|F01|F02|F03|F04|H01|H02|EXT-*",
+  "persona_id": "M01|M02|M03|M04|F01-SWEET-165|F02-OUTDOOR-167|F03-URBAN-168|F04-CAMPUS-163|F05-TREND-170|F06-ELEGANT-165|H01|H02|EXT-*",
   "persona_name": "",
   "selection_reason": "",
   "age": "",
@@ -111,6 +115,8 @@ Create these files in order:
 }
 ```
 
+For campaigns using multiple people, also add `campaign_personas`, with one entry per output image containing `output`, `persona_id`, `reference_image`, `selection_reason`, and `consumer_profile_alignment`.
+
 Create `commercial_styling_decision.json` before image generation.
 
 ```json
@@ -122,7 +128,7 @@ Create `commercial_styling_decision.json` before image generation.
   "consumer_profile_ref": "consumer_profile.json",
   "persona_selection_ref": "persona_selection.json",
   "person_analysis": {
-    "persona_id": "M01|M02|M03|M04|F01|F02|F03|F04|H01|H02|EXT-*|not_applicable",
+    "persona_id": "M01|M02|M03|M04|F01-SWEET-165|F02-OUTDOOR-167|F03-URBAN-168|F04-CAMPUS-163|F05-TREND-170|F06-ELEGANT-165|H01|H02|EXT-*|not_applicable",
     "persona_name": "",
     "gender": "",
     "age_range": "",

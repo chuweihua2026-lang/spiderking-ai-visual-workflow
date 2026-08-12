@@ -48,6 +48,8 @@ The SpiderKing logo is not required as runtime input. The downstream poster and 
 - Before every image-generation or image-editing call, invoke or revalidate `spiderking-commercial-visual-stylist` and load its detailed framework.
 - Before every image-generation or image-editing call that creates or changes a scene, invoke `spiderking-commercial-scene-director` and load its commercial scene database.
 - Select every human subject through the persona chain: product price band -> target consumer -> purchase decision-maker -> actual user -> use scene -> persona ID. Do not default to a young female model.
+- The main poster and three scene images may use different approved models for the same shoe. Do not require one fixed face across the campaign; require one coherent consumer profile and record the selected `persona_id` for every output.
+- Use one to three personas across the three styling images when multiple models improve variety. Never blend multiple persona reference boards into one person.
 - Do not call ChatGPT image generation unless `commercial_styling_decision.json.status` is `approved` and all applicable pre-generation checks pass.
 - Do not generate a scene unless the matching `commercial_scene_decision*.json.status` is `approved`.
 - Select scenes in this order: product, consumer, use context, brand feeling, then location, space, architecture, time, light, action, and camera.
@@ -207,7 +209,7 @@ Output:
 Work:
 
 - Generate exactly three separate 9:16 model scene images.
-- Use the approved persona ID or documented persona variation from `commercial_styling_decision.json`.
+- Use the approved per-image persona ID from `commercial_styling_decision.json`; one, two, or three models may be used across the three outputs.
 - All models must be standing.
 - Standing pose, body direction, outfit, makeup, hairstyle, accessories, bag, scene material, background, and camera perspective must not repeat.
 - Each image includes professional atmospheric scene-title typography.

@@ -33,12 +33,14 @@ Use this Skill after `spiderking-product-vision` and scene direction are availab
 - Invoke `spiderking-commercial-visual-stylist` before generating each model image and load its detailed framework.
 - Invoke `spiderking-commercial-scene-director` before each model image and load its commercial scene database.
 - Do not generate when `commercial_styling_decision.json` is missing, stale for another product, or not `approved`.
-- Do not change the approved consumer identity or persona ID merely to increase conventional attractiveness.
+- Do not change the approved consumer profile merely to increase conventional attractiveness. A campaign may intentionally use different approved persona IDs, but every selection must remain credible for that same product and consumer logic.
 - Do not generate an image when its matching `commercial_scene_decision_0N.json` is missing, stale, or not `approved`.
 - Follow the mandatory analysis order before prompting: person, brand, product function, scene, clothing, footwear, bag, accessories, color, materials, pose/camera, and commercial optimization.
 - Let product function control the scene and outfit before trend styling. Do not reduce outdoor hiking, trail, business, or other specialized footwear to generic sportswear.
 - Select age, gender, occupation, family status, purchasing power, clothing style, temperament, and scene from the approved persona database decision. Do not default to the youngest or most attractive model.
 - Generate exactly three different 9:16 model scene images.
+- The three images may use one, two, or three different approved models. Same-face consistency is optional; consumer-profile consistency and per-image persona traceability are mandatory.
+- Assign and record one `persona_id` and one reference board for each scene image before generation. Never merge two persona boards into one face.
 - Generate them as three separate image files, not one combined triptych, collage, grid, contact sheet, or multi-panel preview.
 - All models must be standing. Do not use sitting, crouching, kneeling, lying, jumping, or half-body-only poses.
 - Standing actions must not repeat across the three images. Each image needs a distinct standing pose and body direction while keeping the shoes visible.
@@ -107,21 +109,17 @@ Use this Skill after `spiderking-product-vision` and scene direction are availab
     "visible_functional_features": [],
     "fashion_attributes": []
   },
-  "model_profile": {
-    "persona_id": "",
-    "persona_name": "",
-    "market": "approved target-consumer persona",
-    "age_range": "",
-    "gender": "",
-    "occupation_or_identity": "",
-    "family_status": "",
-    "purchasing_power": "",
-    "purchase_decision_role": "",
-    "overall_mood": ""
+  "campaign_model_policy": {
+    "same_model_required": false,
+    "allowed_persona_count": "1-3",
+    "consumer_profile_must_match": true,
+    "blend_persona_faces": false
   },
   "scene_images": [
     {
       "output": "scene_model_01.png",
+      "persona_id": "",
+      "persona_reference_image": "",
       "aspect_ratio": "9:16",
       "scene_concept": "",
       "scene_title": "",
@@ -249,6 +247,7 @@ Accept only if:
 - The approved Commercial Visual Stylist decision exists and all applicable checks pass.
 - Three approved Commercial Scene Director decisions exist and their diversity signatures do not repeat.
 - The selected persona is a credible consumer, actual user, or purchase decision-maker for the product; age, occupation, family identity, purchasing power, clothing, and scene are coherent.
+- Each model image records its own persona ID and reference board. Multiple models are allowed, but all remain coherent with the approved consumer profile and product positioning.
 - Product function remains visible in the scene and outfit logic.
 - Model styling, makeup, and hairstyle do not repeat across the three images.
 - Ground material, background type, and camera perspective do not repeat across the three images.

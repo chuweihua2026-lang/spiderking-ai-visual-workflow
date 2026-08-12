@@ -40,6 +40,21 @@ Examples:
 | F03 | Mature Elegant Woman | 35-50 | executive, household decision-maker, senior professional | quality, classic value, durability | cashmere, silk, coat, refined tailoring | premium leather goods, women's footwear | premium hotel, gallery, cultural venue |
 | F04 | Urban Mother | 30-45 | family consumer and household decision-maker | practicality, quality, family needs | comfortable, clean, understated outfits | functional bags, casual shoes, luggage | shopping mall, family space, family travel |
 
+## Approved SpiderKing Female Reference Boards
+
+These are image-backed production personas. Use the exact board as an identity reference when the consumer role fits.
+
+| ID | Direction | Reference board | Suitable products |
+|---|---|---|---|
+| F01-SWEET-165 | sweet, clean, fair-skinned, youthful | `../assets/personas/female/F01-SWEET-165.png` | casual shoes, light sports, sweet-trend footwear |
+| F02-OUTDOOR-167 | healthy, slender, exploratory | `../assets/personas/female/F02-OUTDOOR-167.png` | hiking, trail, outdoor thick-sole footwear |
+| F03-URBAN-168 | refined, urban, light-mature | `../assets/personas/female/F03-URBAN-168.png` | commuter, loafer, urban casual footwear |
+| F04-CAMPUS-163 | youthful, lively, campus-led | `../assets/personas/female/F04-CAMPUS-163.png` | campus, canvas, retro casual footwear |
+| F05-TREND-170 | tall, youthful, trend and technical | `../assets/personas/female/F05-TREND-170.png` | platform, color-blocked, trend sports footwear |
+| F06-ELEGANT-165 | mature, approachable, quality-led | `../assets/personas/female/F06-ELEGANT-165.png` | comfort, mature women, travel and light-business footwear |
+
+For one shoe campaign, one to three different personas may appear. Keep the target-consumer logic coherent, select each persona explicitly per output, and never blend multiple boards into one face.
+
 ## Family Personas
 
 | ID | Persona | People | Need | Motivation | Scenes |
