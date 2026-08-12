@@ -57,6 +57,7 @@ Complete this sequence without skipping:
 - Keep the approved consumer profile, age-band logic, purchasing power, product function, and brand positioning coherent across all selected personas. Different faces must not become contradictory consumer identities.
 - Record a separate `persona_id` and reference image for every model-containing output. Do not blend facial features from multiple persona boards into one synthetic identity.
 - Use the six approved female reference boards in `assets/personas/female/` when their consumer role fits: `F01-SWEET-165`, `F02-OUTDOOR-167`, `F03-URBAN-168`, `F04-CAMPUS-163`, `F05-TREND-170`, and `F06-ELEGANT-165`.
+- Use the approved male reference boards in `assets/personas/male/` when their consumer role fits: six core personas `M01-CLEAN-178` through `M06-MATURE-178`, plus optional performance persona `M07-SPORT-180`.
 - Classify the product before selecting a scene or outfit. For shoes, record primary category, subcategory, intended activity, terrain, visible structural functions, fashion language, and unsupported claims.
 - Separate visible evidence from inference. Do not claim waterproofing, medical benefits, absolute anti-slip performance, durability, or other unverified functions.
 - Let the shoe determine the outfit direction. Do not reduce outdoor hiking or trail footwear to generic running styling.
@@ -101,7 +102,7 @@ Create these files in order:
   "stage": "persona_selection",
   "status": "approved",
   "consumer_profile_ref": "consumer_profile.json",
-  "persona_id": "M01|M02|M03|M04|F01-SWEET-165|F02-OUTDOOR-167|F03-URBAN-168|F04-CAMPUS-163|F05-TREND-170|F06-ELEGANT-165|H01|H02|EXT-*",
+  "persona_id": "M01-CLEAN-178|M02-OUTDOOR-180|M03-URBAN-180|M04-CAMPUS-176|M05-TREND-183|M06-MATURE-178|M07-SPORT-180|F01-SWEET-165|F02-OUTDOOR-167|F03-URBAN-168|F04-CAMPUS-163|F05-TREND-170|F06-ELEGANT-165|H01|H02|EXT-*",
   "persona_name": "",
   "selection_reason": "",
   "age": "",
@@ -128,7 +129,7 @@ Create `commercial_styling_decision.json` before image generation.
   "consumer_profile_ref": "consumer_profile.json",
   "persona_selection_ref": "persona_selection.json",
   "person_analysis": {
-    "persona_id": "M01|M02|M03|M04|F01-SWEET-165|F02-OUTDOOR-167|F03-URBAN-168|F04-CAMPUS-163|F05-TREND-170|F06-ELEGANT-165|H01|H02|EXT-*|not_applicable",
+    "persona_id": "M01-CLEAN-178|M02-OUTDOOR-180|M03-URBAN-180|M04-CAMPUS-176|M05-TREND-183|M06-MATURE-178|M07-SPORT-180|F01-SWEET-165|F02-OUTDOOR-167|F03-URBAN-168|F04-CAMPUS-163|F05-TREND-170|F06-ELEGANT-165|H01|H02|EXT-*|not_applicable",
     "persona_name": "",
     "gender": "",
     "age_range": "",

@@ -31,6 +31,22 @@ Examples:
 | M03 | Young Trend Man | 18-30 | student, young employee, freelancer | individuality, trends, social display | sweatshirt, denim, sportswear | sneakers, trend footwear | campus, street, youth district |
 | M04 | Outdoor Explorer Man | 30-55 | entrepreneur, outdoor enthusiast, photographer | freedom, health, experience | shell jacket, utility trousers, outdoor shoes | outdoor footwear, travel equipment | mountains, forest, travel route |
 
+## Approved SpiderKing Male Reference Boards
+
+These image-backed personas are the default male production library. Each board contains full-body and face views from the front, 45 degrees, and side.
+
+| ID | Direction | Reference board | Suitable products |
+|---|---|---|---|
+| M01-CLEAN-178 | clean, youthful, approachable | `../assets/personas/male/M01-CLEAN-178.png` | light sports, casual, walking and campus shoes |
+| M02-OUTDOOR-180 | healthy, reliable, outdoor-led | `../assets/personas/male/M02-OUTDOOR-180.png` | hiking, trail, outdoor thick-sole footwear |
+| M03-URBAN-180 | polished, professional, urban | `../assets/personas/male/M03-URBAN-180.png` | commuter, loafer, business-casual footwear |
+| M04-CAMPUS-176 | youthful, light, campus-led | `../assets/personas/male/M04-CAMPUS-176.png` | canvas, skate, retro sport and campus footwear |
+| M05-TREND-183 | tall, editorial, trend and technical | `../assets/personas/male/M05-TREND-183.png` | platform, color-blocked, technical trend footwear |
+| M06-MATURE-178 | mature, steady, quality-led | `../assets/personas/male/M06-MATURE-178.png` | comfort, business leather, travel and mature casual footwear |
+| M07-SPORT-180 | athletic, energetic, performance-led | `../assets/personas/male/M07-SPORT-180.png` | running, training, court-inspired and performance casual footwear |
+
+`M07-SPORT-180` is an extension persona, not a replacement for `M01-CLEAN-178` or `M02-OUTDOOR-180`. Use it only when visible product construction and positioning support stronger athletic performance language.
+
 ## Female Personas
 
 | ID | Persona | Age | Identity | Motivation | Styling | Suitable products | Scenes |
