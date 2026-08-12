@@ -19,7 +19,7 @@ The workflow is dependency-based and must run in this order:
 1. Product Recognition: run the image-free recognition phase of `spiderking-product-vision` and approve `product_recognition.json`.
 2. Consumer Profile: run `spiderking-commercial-visual-stylist` and approve `consumer_profile.json`.
 3. Persona Selection: select and approve `persona_selection.json` from the built-in human persona database.
-4. Clothing Styling: define upper, lower, outerwear, silhouette, color, and materials.
+4. Clothing Styling: query the approved outfit reference library, then define upper, lower, outerwear, silhouette, color, and materials.
 5. Shoe-Bag-Accessory Styling: validate the shoe-led outfit, bag, watch, jewelry, hat or hair detail, and personal charms; approve `commercial_styling_decision.json`.
 6. Scene Selection: run `spiderking-commercial-scene-director` for every image containing an environment and approve each `commercial_scene_decision*.json`.
 7. Commercial Photography Generation: render Product Vision, then run three production branches in parallel:
@@ -32,6 +32,7 @@ The workflow is dependency-based and must run in this order:
 
 - `shoe_images`: 1 to 3 original product image paths, URLs, or attachment references.
 - Optional `optional_product_hint`: product name, model, category, target customer, season, campaign theme, or selling direction.
+- Optional `outfit_reference_library`: defaults to `/Users/chuchu/Desktop/素材库/穿搭参考图/标准化档案库` when available.
 
 The SpiderKing logo is not required as runtime input. The downstream poster and layout Skills own the built-in uploaded logo assets:
 
@@ -55,6 +56,9 @@ The SpiderKing logo is not required as runtime input. The downstream poster and 
 - Select scenes in this order: product, consumer, use context, brand feeling, then location, space, architecture, time, light, action, and camera.
 - Complete the required order: person, brand, product, scene, clothing, footwear, bag, accessories, color, materials, pose/camera, and commercial optimization.
 - Product function controls scene and styling before fashion decoration. Do not reduce hiking, trail, business, or other specialized footwear to generic sports styling.
+- During clothing styling, read the outfit library index and select references by product category, consumer, gender, age, season, scene, silhouette, and function. Do not classify or select solely from filenames.
+- Treat all outfit boards as reference-only. Never paste, trace, or recreate a reference person, pose, text, logo, distinctive print, background, reference shoe, or complete outfit.
+- Record `outfit_reference_id`, `reference_category`, `adopted_elements`, and `rejected_elements` for every model-containing output. Three scene images must use three different reference IDs and materially different silhouettes.
 - Separate visible evidence from inference and block unsupported functional claims.
 - All image generation, image editing, or AI-created visual content must use ChatGPT image generation only.
 - Do not use Midjourney, Stable Diffusion, ComfyUI, Gemini image generation, reverse-engineered image tools, or any other image model.
@@ -131,6 +135,8 @@ Output and gate:
 ### Stages 4-5: Clothing and Shoe-Bag Styling
 
 Build clothing first, then validate footwear-led outfit logic and select bag and accessories.
+
+Before approval, search `穿搭参考库索引.csv`, shortlist two to five compatible boards for each model output, and reject category-majority bias. The shoe and consumer decision outrank the number of boards in any category.
 
 Output and gate:
 

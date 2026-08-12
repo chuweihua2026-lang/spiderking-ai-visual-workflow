@@ -17,6 +17,7 @@ Read both references in full before approving any image-generation brief:
 
 - [references/commercial-styling-framework.md](references/commercial-styling-framework.md)
 - [references/human-persona-database.md](references/human-persona-database.md)
+- [references/outfit-reference-library.md](references/outfit-reference-library.md) when selecting clothing, bags, accessories, materials, or color relationships.
 
 ## Mandatory Invocation
 
@@ -29,6 +30,16 @@ The governing order is: `商品识别 -> 消费者画像 -> 人物选择 -> 服�
 - For deterministic final layout using already approved images, do not rerun this Skill unless new visual content will be generated.
 - Do not call the image model until `commercial_styling_decision.json.status` equals `approved`.
 - Require an approved `product_recognition.json` before consumer profiling or persona selection. Do not select a person from raw visual impression alone.
+
+## Outfit Reference Library
+
+- Default local library: `/Users/chuchu/Desktop/素材库/穿搭参考图/标准化档案库`.
+- Read `穿搭参考库索引.csv` and classify by image content, not the original filename.
+- Retrieve references only after product recognition, consumer profile, persona, function, season, and scene needs are known.
+- Select two to five candidates from the nearest semantic categories, then reject candidates that conflict with shoe function, consumer age, season, silhouette, or scene.
+- Treat every board as `reference_only`: extract silhouette, layering, material, color ratio, bag, accessory, and styling logic only. Never paste, trace, or reproduce the person, pose, text, logo, distinctive print, complete outfit, or reference shoe.
+- Record the selected reference asset IDs and the specific elements adopted. If the library is unavailable, build the styling decision from the approved framework and record `library_status: unavailable`.
+- For a three-image campaign, do not assign the same outfit reference board to more than one output. The three looks must differ in bottom silhouette, outerwear, bag, accessories, hair or headwear, and color emphasis.
 
 ## Required Decision Order
 
@@ -61,6 +72,7 @@ Complete this sequence without skipping:
 - Classify the product before selecting a scene or outfit. For shoes, record primary category, subcategory, intended activity, terrain, visible structural functions, fashion language, and unsupported claims.
 - Separate visible evidence from inference. Do not claim waterproofing, medical benefits, absolute anti-slip performance, durability, or other unverified functions.
 - Let the shoe determine the outfit direction. Do not reduce outdoor hiking or trail footwear to generic running styling.
+- Reference-board popularity never overrides product fit. Overrepresented categories must not become the default when another category better matches the shoe and consumer.
 - Make scene choice follow functional attributes first, then fashion expression.
 - Keep no more than three main colors and use a 60/30/10 color ratio unless the campaign has a documented reason to differ.
 - Use accessories sparingly but completely: select a watch when appropriate, jewelry, hat or hair detail, bag, and one or two personal charms when they support the concept.
@@ -172,6 +184,17 @@ Create `commercial_styling_decision.json` before image generation.
     "atmosphere": "",
     "ground_material": "",
     "background_elements": []
+  },
+  "outfit_reference_selection": {
+    "library_status": "available|unavailable",
+    "library_root": "/Users/chuchu/Desktop/素材库/穿搭参考图/标准化档案库",
+    "index_ref": "穿搭参考库索引.csv",
+    "candidate_asset_ids": [],
+    "selected_asset_ids": [],
+    "selection_reasons": [],
+    "adopted_elements": [],
+    "rejected_elements": [],
+    "direct_copy_forbidden": true
   },
   "styling": {
     "top": "",

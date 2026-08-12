@@ -24,6 +24,7 @@ Use this Skill after `spiderking-product-vision` and scene direction are availab
 - `scene_spec.json` or scene direction from Scene Engine, if available.
 - `key_selling_points`: shoe selling points from Product Vision or main poster copy.
 - `shoe_reference`: original shoe image or validated product reference.
+- `outfit_reference_library`: default `/Users/chuchu/Desktop/素材库/穿搭参考图/标准化档案库` with `穿搭参考库索引.csv`.
 - Optional `style_hint`: campaign mood, customer profile, season, or store channel.
 
 ## Hard Rules
@@ -41,6 +42,9 @@ Use this Skill after `spiderking-product-vision` and scene direction are availab
 - Generate exactly three different 9:16 model scene images.
 - The three images may use one, two, or three different approved models. Same-face consistency is optional; consumer-profile consistency and per-image persona traceability are mandatory.
 - Assign and record one `persona_id` and one reference board for each scene image before generation. Never merge two persona boards into one face.
+- Select outfit reference boards by visual content and indexed category after product, consumer, persona, season, and scene approval. Never trust an unverified filename as the styling decision.
+- Outfit reference boards are reference-only. Extract garment silhouette, layering, materials, 60/30/10 color logic, bag, and accessory relationships; never paste or reproduce the reference person, pose, background, text, logo, distinctive print, reference shoe, or complete look.
+- Record a unique `outfit_reference_id` for every scene. Do not reuse one outfit board across the three outputs, and do not merely recolor the same silhouette.
 - Generate them as three separate image files, not one combined triptych, collage, grid, contact sheet, or multi-panel preview.
 - All models must be standing. Do not use sitting, crouching, kneeling, lying, jumping, or half-body-only poses.
 - Standing actions must not repeat across the three images. Each image needs a distinct standing pose and body direction while keeping the shoes visible.
@@ -72,12 +76,13 @@ Use this Skill after `spiderking-product-vision` and scene direction are availab
 1. Read product style, detailed functional classification, visible shoe evidence, selling points, and scene direction.
 2. Invoke `spiderking-commercial-visual-stylist`; complete and approve the full commercial analysis before any generation call.
 3. Invoke `spiderking-commercial-scene-director` three times to approve three product-led scene decisions. Pass earlier diversity signatures into later calls.
-4. For each scene, create a unique standing model look: outfit silhouette, bottom type, color ratio, materials, makeup, hairstyle, optional hat, watch, jewelry, hair details, bag, personal charms, and a non-repeating standing action.
-5. Run a cross-image diversity check before generation. Reject repeated bottom silhouettes, outerwear, bag types, hair, makeup, actions, or camera angles.
-6. Write one professional atmospheric scene title for each image.
-7. Generate three separate 9:16 images with ChatGPT image generation, attaching or referencing the original shoe image. Do not generate a single combined preview sheet.
-8. Validate shoe visibility, standing pose, non-repetition, function-scene fit, accessory completeness, scene atmosphere, and typography.
-9. If any shoe detail drifts, any pose is not standing, or product function is diluted, regenerate that image before passing downstream.
+4. Search the outfit reference index and shortlist two to five semantically compatible boards per scene. Record why each selected board fits the product and which elements may be extracted.
+5. For each scene, create a unique standing model look: outfit silhouette, bottom type, color ratio, materials, makeup, hairstyle, optional hat, watch, jewelry, hair details, bag, personal charms, and a non-repeating standing action.
+6. Run a cross-image diversity check before generation. Reject reused reference IDs, repeated bottom silhouettes, outerwear, bag types, hair, makeup, actions, or camera angles.
+7. Write one professional atmospheric scene title for each image.
+8. Generate three separate 9:16 images with ChatGPT image generation, attaching or referencing the original shoe image. Do not generate a single combined preview sheet.
+9. Validate shoe visibility, standing pose, non-repetition, function-scene fit, accessory completeness, scene atmosphere, and typography.
+10. If any shoe detail drifts, any pose is not standing, or product function is diluted, regenerate that image before passing downstream.
 
 ## Outputs
 
@@ -120,6 +125,11 @@ Use this Skill after `spiderking-product-vision` and scene direction are availab
       "output": "scene_model_01.png",
       "persona_id": "",
       "persona_reference_image": "",
+      "outfit_reference_id": "",
+      "outfit_reference_category": "",
+      "outfit_reference_path": "",
+      "adopted_reference_elements": [],
+      "rejected_reference_elements": [],
       "aspect_ratio": "9:16",
       "scene_concept": "",
       "scene_title": "",

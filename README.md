@@ -67,6 +67,9 @@ Then provide 1 to 3 shoe product images and optional product direction.
 - Every human subject is selected through the built-in persona database using product price band, target consumer, purchase decision-maker, actual user, and use scene; the workflow does not default to the youngest or most attractive model.
 - Complete person, brand, product, scene, clothing, footwear, bag, accessories, color, material, pose, camera, and commercial checks before model-image generation.
 - Product function controls the scene and outfit before fashion decoration; specialized outdoor, trail, business, or other footwear must not be reduced to generic sports styling.
+- Clothing styling uses the standard outfit reference library at `/Users/chuchu/Desktop/素材库/穿搭参考图/标准化档案库` when available. It reads `穿搭参考库索引.csv` and selects by image content, product function, consumer, season, scene, and silhouette rather than trusting filenames.
+- Outfit boards are reference-only. The workflow may extract silhouette, layering, material, color, bag, and accessory logic, but may not paste or reproduce the reference person, pose, text, logo, background, reference shoe, or complete outfit.
+- Each generated model image records a unique outfit reference ID; the three 9:16 images may not reuse one reference board or merely recolor one silhouette.
 - Preserve the input shoe one-to-one across every generated image.
 - Product structure, colors, materials, stitching, logo, laces, decorative details, and proportions must not change.
 - The SpiderKing logo must use the uploaded asset and must not be redrawn or replaced.
